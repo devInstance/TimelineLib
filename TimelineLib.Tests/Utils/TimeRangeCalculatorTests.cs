@@ -1,10 +1,5 @@
 ﻿using Xunit;
-using DevInstance.TimelineLib.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInstance.TimelineLib.Utils.Tests
 {
@@ -25,13 +20,13 @@ namespace DevInstance.TimelineLib.Utils.Tests
         }
 
         [Theory]
-        [InlineData(8.0, 20.0, new double[] { 2, 4, 6}, new int[] { 30, 30, 30 }, 8.0, 20.0)]
-        [InlineData(8.0, 20.0, new double[] { 2, 4, 12}, new int[] { 30, 30, 30 }, 8.0, 21.0)]
-        [InlineData(8.0, 20.0, new double[] { 2, 4, 13 }, new int[] { 30, 30, 30 }, 8.0, 22.0)]
-        [InlineData(8.0, 20.0, new double[] { 2, 4, 12 }, new int[] { 30, 30, 90 }, 8.0, 22.0)]
+        [InlineData(8.0, 20.0, new double[] { 9, 13, 15}, new int[] { 30, 30, 30 }, 8.0, 20.0)]
+        [InlineData(8.0, 20.0, new double[] { 9, 13, 20.5 }, new int[] { 30, 30, 30 }, 8.0, 21.0)]
+        [InlineData(8.0, 20.0, new double[] { 9, 13, 22 }, new int[] { 30, 30, 30 }, 8.0, 22.5)]
+        [InlineData(8.0, 20.0, new double[] { 2, 4, 12 }, new int[] { 30, 30, 90 }, 2.0, 20.0)]
         public void CalculateDynamicTimeRangeInTheRangeTest(double start, double end, double[] timeEntries, int[] timeSpanEntries, double expectedStart, double expectedEnd)
         {
-            var now = new DateTime(2021, 1, 12, 8, 0, 0);
+            var now = new DateTime(2021, 1, 12, 0, 0, 0);
 
             var data = new Timeline.Line[] {
                 new Timeline.Line
@@ -51,9 +46,9 @@ namespace DevInstance.TimelineLib.Utils.Tests
                     CssClass = "blue",
                     Items = new Timeline.Item[]
                     {
-                        new Timeline.Item { StartTime = now.AddHours(-1), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new Timeline.Item { StartTime = now.AddDays(-20).AddHours(-2), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new Timeline.Item { StartTime = now.AddHours(-3), ElapsedTime = new TimeSpan(0, 30, 0)}
+                        new Timeline.Item { StartTime = now.AddHours(9), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new Timeline.Item { StartTime = now.AddDays(-20).AddHours(11), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new Timeline.Item { StartTime = now.AddHours(12), ElapsedTime = new TimeSpan(0, 30, 0)}
                     }
                 }
 
