@@ -38,19 +38,37 @@
 @using DevInstance.LogScope;
 
 @code {
-    private ILogProvider LogProvider = new ConsoleLogProvider(LogLevel.DEBUG); //TODO: refactor
 
-    private DateTime currentDateTime = DateTime.Now;
-
-    [Parameter]
-    public DateTime CurrentDateTime
+        /// <summary>
+        /// Current date and time
+        /// </summary>
+        [Parameter]
+        public DateTime CurrentDateTime
     {
-        get => currentDateTime;
-        set => currentDateTime = value;
-    }
+            get => currentDateTime;
+            set => currentDateTime = value;
+        }
 
-    [Parameter]
-    public Line[] Lines { get; set; }
+        /// <summary>
+        /// Start time of the scale (default 8.0 => 8:00 AM)
+        /// </summary>
+        [Parameter]
+        public double? StartTime { get; set; }
+        /// <summary>
+        /// End time of the scale (default 20.0 => 8:00 PM)
+        /// </summary>
+        [Parameter]
+        public double? EndTime { get; set; }
+        /// <summary>
+        /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
+        /// </summary>
+        [Parameter]
+        public bool IsTimeRangeFlexible { get; set; }
+        /// <summary>
+        /// Data
+        /// </summary>
+        [Parameter]
+        public IEnumerable<Line> Data { get; set; }
 
     public struct Item
     {
@@ -58,6 +76,8 @@
 
         public DateTime StartTime { get; set; }
         public TimeSpan ElapsedTime { get; set; }
+
+        public DateTime EndTime => StartTime + ElapsedTime;
     }
 
     public struct Line
@@ -66,207 +86,10 @@
         public string Descritpion;
         public string CssClass;
 
-        public Item[] Items;
+        public IEnumerable<Item> Items;
 
         public Object ItemObject;
 
     }
 
-    struct TimeScaleLabelItem
-    {
-        public string cssClass;
-        public string divStyle;
-        public string labelText;
-    }
-
-    struct TimeScaleItem
-    {
-        public string lineonex;
-        public string lineoney;
-
-        public string linetwox;
-        public string linetwoy;
-    }
-
-    struct TimeBar
-    {
-        public string cssClass;
-        public string x;
-        public string y;
-        public string width;
-        public string height;
-        public string label;
-        public string labelx;
-        public string labely;
-        public string labeltooltip;
-    }
-
-    private DateTime StartDate { get; set; }
-    private DateTime EndDate { get; set; }
-    private float CellWidthPercent { get; set; }
-
-    private TimeScaleLabelItem[] TimeScaleLabel;
-    private TimeScaleItem[] TimeScale;
-    private TimeBar[] TimeBars;
-
-    private int svgHeight;
-
-    private ILog log;
-
-    private void InitializeTimeScale()
-    {
-        using (var l = log.DebugExScope())
-        {
-            var labels = new List<TimeScaleLabelItem>();
-            for (DateTime time = StartDate; time <= EndDate; time = time.AddHours(1))
-            {
-                var item = new TimeScaleLabelItem();
-
-                item.cssClass = time.Hour % 2 == 1 ? "odd-label" : "even-label";
-                item.labelText = time.ToString("hhtt").ToLower();
-
-                if (time == StartDate || time.Hour == EndDate.Hour - 1)
-                {
-                    item.divStyle = $"max-width:{CellWidthPercent - 1}%;width:{CellWidthPercent - 1}%";
-                }
-                else if (time.Hour == EndDate.Hour)
-                {
-                    item.divStyle = $"max-width:1%;width:1%";
-                }
-                else
-                {
-                    item.divStyle = $"max-width:{CellWidthPercent}%;width:{CellWidthPercent}%";
-                }
-                labels.Add(item);
-            }
-            TimeScaleLabel = labels.ToArray();
-
-            var items = new List<TimeScaleItem>();
-            @for (int i = 0, count = EndDate.Hour - StartDate.Hour; i < count; i++)
-            {
-                var item = new TimeScaleItem
-                {
-                    lineonex = $"{i * CellWidthPercent}%",
-                    lineoney = "16",
-                    linetwox = $"{i * CellWidthPercent + CellWidthPercent / 2}%",
-                    linetwoy = "8"
-                };
-                items.Add(item);
-            }
-
-            TimeScale = items.ToArray();
-
-            if (Lines != null)
-            {
-                svgHeight = Lines.Length * 36 + 10; //TODO: refactor
-            }
-            else
-            {
-                svgHeight = 46;
-            }
-        }
-    }
-
-    private void InitializeTimeBars()
-    {
-        var bars = new List<TimeBar>();
-
-        if (Lines != null)
-        {
-            for (int n = 0; n < Lines.Length; n++)
-            {
-                var task = Lines[n];
-                foreach (var tl in task.Items)
-                {
-                    float x = ((tl.StartTime.ToLocalTime().Hour + (tl.StartTime.ToLocalTime().Minute / 60.0f) - (float)StartDate.Hour) * CellWidthPercent);
-                    int y = n * 36 + 10;
-                    float width = ((float)tl.ElapsedTime.TotalMinutes / 60.0f * CellWidthPercent);
-                    int height = 26;
-                    var item = new TimeBar
-                    {
-                        cssClass = "bar " + (task.CssClass != null ? task.CssClass.ToLower() : "white"),
-                        x = $"{x}%",
-                        y = $"{y}",
-                        width = $"{width}%",
-                        height = $"{height}",
-                        labelx = $"{x + 0.25}%",
-                        labely = $"{y + 18}"
-                    };
-
-                    if (width > 3.0)
-                    {
-                        //if (task.IsRunning && task.ActiveTimeLogItem.Id == tl.Id)
-                        //{
-                        //    item.label = String.Format("{0:F1} hrs", task.GetTotalHoursSpentTodayTillNow(TimeProvider));
-                        //}
-                        //else
-                        //{
-                        // item.label = String.Format("{0:F1}", tl.GetElapsedThisPeriodHours(TimeProvider));
-                        //}
-                    }
-                    item.labeltooltip = tl.ElapsedTime.ToString();
-
-                    bars.Add(item);
-                }
-            }
-        }
-
-        TimeBars = bars.ToArray();
-    }
-
-    protected override void OnInitialized()
-    {
-        log = LogProvider.CreateLogger(this);
-        using (var l = log.DebugExScope())
-        {
-            DateTime now = DateTime.Now;
-
-            StartDate = DateTime.Today;
-
-            if (now.Hour < 8)
-            {
-                if (now.Hour > 1)
-                {
-                    StartDate = DateTime.Today.AddHours(now.Hour - 1);
-                }
-            }
-            else
-            {
-                StartDate = DateTime.Today.AddHours(8);
-            }
-
-            if (now.Hour >= 20)
-            {
-                if (now.Hour < 23)
-                {
-                    EndDate = DateTime.Today.AddHours(now.Hour + 1);
-                }
-                else
-                {
-                    EndDate = DateTime.Today.AddHours(now.Hour);
-                }
-            }
-            else
-            {
-                EndDate = DateTime.Today.AddHours(20);
-            }
-
-            CellWidthPercent = 100.0f / (EndDate.Hour - StartDate.Hour);
-
-            InitializeTimeScale();
-            InitializeTimeBars();
-            StateHasChanged();
-        }
-    }
-
-    protected override bool ShouldRender()
-    {
-        using (var l = log.DebugExScope())
-        {
-            InitializeTimeScale();
-            InitializeTimeBars();
-
-            return true;
-        }
-    }
 }

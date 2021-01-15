@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimelineSampleApp", "Timeli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogScope", "..\LogScope\LogScope\LogScope.csproj", "{062CFA9B-EB8A-4DC8-8FD5-B5F794BDE623}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimelineLib.Tests", "TimelineLib.Tests\TimelineLib.Tests.csproj", "{8BD27A6F-B05D-4996-B9BF-31E5CDB219CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{062CFA9B-EB8A-4DC8-8FD5-B5F794BDE623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{062CFA9B-EB8A-4DC8-8FD5-B5F794BDE623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{062CFA9B-EB8A-4DC8-8FD5-B5F794BDE623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD27A6F-B05D-4996-B9BF-31E5CDB219CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD27A6F-B05D-4996-B9BF-31E5CDB219CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD27A6F-B05D-4996-B9BF-31E5CDB219CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD27A6F-B05D-4996-B9BF-31E5CDB219CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

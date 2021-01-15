@@ -12,7 +12,7 @@ namespace DevInstance.Timeline.Sample.Pages
 
         protected async override Task OnInitializedAsync()
         {
-            var now = DateTime.Now;
+            var now = new DateTime(2021, 1, 12, 16, 0, 0);
 
             Lines = new TimelineLib.Timeline.Line[] {
                 new TimelineLib.Timeline.Line 
