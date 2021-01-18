@@ -12,7 +12,7 @@ namespace DevInstance.Timeline.Sample.Pages
 
         protected async override Task OnInitializedAsync()
         {
-            var now = new DateTime(2021, 1, 12, 16, 0, 0);
+            var now = new DateTime(2021, 1, 12, 0, 0, 0);
 
             Lines = new TimelineLib.Timeline.Line[] {
                 new TimelineLib.Timeline.Line 
@@ -21,9 +21,13 @@ namespace DevInstance.Timeline.Sample.Pages
                     CssClass = "orange",
                     Items = new TimelineLib.Timeline.Item[]
                     {
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-6), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-4), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-2), ElapsedTime = new TimeSpan(0, 30, 0)}
+                        new TimelineLib.Timeline.Item { StartTime = now, ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(2), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(4), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(8), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(12), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(20), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(23), ElapsedTime = new TimeSpan(0, 30, 0)},
                     }
                 },
                 new TimelineLib.Timeline.Line
@@ -32,9 +36,9 @@ namespace DevInstance.Timeline.Sample.Pages
                     CssClass = "blue",
                     Items = new TimelineLib.Timeline.Item[]
                     {
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-7), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-5), ElapsedTime = new TimeSpan(0, 30, 0)},
-                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(-3), ElapsedTime = new TimeSpan(0, 30, 0)}
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(3), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(11), ElapsedTime = new TimeSpan(0, 30, 0)},
+                        new TimelineLib.Timeline.Item { StartTime = now.AddHours(16.25), ElapsedTime = new TimeSpan(0, 30, 0)}
                     }
                 }
 

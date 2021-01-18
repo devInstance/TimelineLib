@@ -43,8 +43,6 @@ namespace DevInstance.TimelineLib
 
         private DateTime currentDateTime = DateTime.Now;
 
-        //private DateTime startDate;
-        //private DateTime endDate;
         private TimeRange timeRange;
         private float cellWidthPercent;
 
@@ -61,38 +59,6 @@ namespace DevInstance.TimelineLib
             log = LogProvider.CreateLogger(this);
             using (var l = log.DebugExScope())
             {
-                //    DateTime now = currentDateTime;
-
-                //    startDate = DateTime.Today;
-
-                //    if (now.Hour < 8)
-                //    {
-                //        if (now.Hour > 1)
-                //        {
-                //            startDate = DateTime.Today.AddHours(now.Hour - 1);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        startDate = DateTime.Today.AddHours(8);
-                //    }
-
-                //    if (now.Hour >= 20)
-                //    {
-                //        if (now.Hour < 23)
-                //        {
-                //            endDate = DateTime.Today.AddHours(now.Hour + 1);
-                //        }
-                //        else
-                //        {
-                //            endDate = DateTime.Today.AddHours(now.Hour);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        endDate = DateTime.Today.AddHours(20);
-                //    }
-
                 CalculateTimeRange();
 
                 cellWidthPercent = 100.0f / (float)timeRange.Span;

@@ -1,74 +1,76 @@
-﻿@if (TimeScaleLabel != null)
-{
-    @foreach (var item in TimeScaleLabel)
+﻿<div>
+    @if (TimeScaleLabel != null)
     {
-        <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
-    }
-    <div>
-        <svg class="chart" width="100%" style="z-index:-1;" height="@(svgHeight)" role="img">
-            @foreach (var item in TimeScale)
-            {
-                <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
-                <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
-            }
-            @foreach (var bar in TimeBars)
-            {
-                <g class="@(bar.cssClass)">
-                    <rect x="@(bar.x)"
-                          y="@(bar.y)"
-                          width="@(bar.width)"
-                          height="@(bar.height)">
-                        <title>@(bar.labeltooltip)</title>
-                    </rect>
-                </g>
-                @if (!string.IsNullOrEmpty(bar.label))
+        @foreach (var item in TimeScaleLabel)
+        {
+            <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
+        }
+        <div>
+            <svg class="chart" width="100%" style="z-index:-1;" height="@(svgHeight)" role="img">
+                @foreach (var item in TimeScale)
                 {
-                    <g class="bar">
-                        <text x="@(bar.labelx)"
-                              y="@(bar.labely)">
-                            @(bar.label)
-                        </text>
-                    </g>
+                    <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
+                    <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
                 }
-            }
-        </svg>
-    </div>
-}
+                @foreach (var bar in TimeBars)
+                {
+                    <g class="@(bar.cssClass)">
+                        <rect x="@(bar.x)"
+                              y="@(bar.y)"
+                              width="@(bar.width)"
+                              height="@(bar.height)">
+                            <title>@(bar.labeltooltip)</title>
+                        </rect>
+                    </g>
+                    @if (!string.IsNullOrEmpty(bar.label))
+                    {
+                        <g class="bar">
+                            <text x="@(bar.labelx)"
+                                  y="@(bar.labely)">
+                                @(bar.label)
+                            </text>
+                        </g>
+                    }
+                }
+            </svg>
+        </div>
+    }
+</div>
 
 @using DevInstance.LogScope;
 
 @code {
 
-        /// <summary>
-        /// Current date and time
-        /// </summary>
-        [Parameter]
-        public DateTime CurrentDateTime
+    /// <summary>
+    /// Current date and time
+    /// </summary>
+    [Parameter]
+    public DateTime CurrentDateTime
     {
-            get => currentDateTime;
-            set => currentDateTime = value;
-        }
+        get => currentDateTime;
+        set => currentDateTime = value;
+    }
 
-        /// <summary>
-        /// Start time of the scale (default 8.0 => 8:00 AM)
-        /// </summary>
-        [Parameter]
-        public double? StartTime { get; set; }
-        /// <summary>
-        /// End time of the scale (default 20.0 => 8:00 PM)
-        /// </summary>
-        [Parameter]
-        public double? EndTime { get; set; }
-        /// <summary>
-        /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
-        /// </summary>
-        [Parameter]
-        public bool IsTimeRangeFlexible { get; set; }
-        /// <summary>
-        /// Data
-        /// </summary>
-        [Parameter]
-        public IEnumerable<Line> Data { get; set; }
+    /// <summary>
+    /// Start time of the scale (default 8.0 => 8:00 AM)
+    /// </summary>
+    [Parameter]
+    public double? StartTime { get; set; }
+    /// <summary>
+    /// End time of the scale (default 20.0 => 8:00 PM)
+    /// </summary>
+    [Parameter]
+    public double? EndTime { get; set; }
+    /// <summary>
+    /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
+    /// </summary>
+    [Parameter]
+    public bool IsTimeRangeFlexible { get; set; }
+    /// <summary>
+    /// Data
+    /// </summary>
+    [Parameter]
+    public IEnumerable<Line> Data { get; set; }
 
     public struct Item
     {
