@@ -17,6 +17,9 @@ namespace DevInstance.TimelineLib.Utils
 
         public static TimeRange CalculateDynamicTimeRange(TimeRange inRange, IEnumerable<Line> data)
         {
+            var isMinUpdated = false;
+            var isMaxUpdated = false;
+
             var minStart = inRange.StartTime;
             var maxEnd = inRange.EndTime;
 
@@ -26,17 +29,27 @@ namespace DevInstance.TimelineLib.Utils
                 {
                     if(item.StartTime.TimeOfDay.TotalHours < minStart)
                     {
+                        isMinUpdated = true;
                         minStart = item.StartTime.TimeOfDay.TotalHours;
                     }
 
                     if (item.EndTime.TimeOfDay.TotalHours > maxEnd)
                     {
+                        isMaxUpdated = true;
                         maxEnd = item.EndTime.TimeOfDay.TotalHours;
                     }
                 }
             }
 
-            //TODO: add margins
+            //Add margins
+            if (isMinUpdated)
+            {
+                minStart = (int)minStart;
+            }
+            if (isMaxUpdated)
+            {
+                maxEnd = (int)maxEnd + 1;
+            }
 
             return new TimeRange(minStart, maxEnd);
         }

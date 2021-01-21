@@ -21,8 +21,9 @@ namespace DevInstance.TimelineLib.Utils.Tests
 
         [Theory]
         [InlineData(8.0, 20.0, new double[] { 9, 13, 15}, new int[] { 30, 30, 30 }, 8.0, 20.0)]
-        [InlineData(8.0, 20.0, new double[] { 9, 13, 20.5 }, new int[] { 30, 30, 30 }, 8.0, 21.0)]
-        [InlineData(8.0, 20.0, new double[] { 9, 13, 22 }, new int[] { 30, 30, 30 }, 8.0, 22.5)]
+        [InlineData(8.0, 20.0, new double[] { 9, 13, 20.5 }, new int[] { 30, 30, 30 }, 8.0, 22.0)]
+        [InlineData(8.0, 20.0, new double[] { 2, 4, 20.75 }, new int[] { 30, 30, 30 }, 2.0, 22.0)]
+        [InlineData(8.0, 20.0, new double[] { 9, 13, 22 }, new int[] { 30, 30, 30 }, 8.0, 23)]
         [InlineData(8.0, 20.0, new double[] { 2, 4, 12 }, new int[] { 30, 30, 90 }, 2.0, 20.0)]
         public void CalculateDynamicTimeRangeInTheRangeTest(double start, double end, double[] timeEntries, int[] timeSpanEntries, double expectedStart, double expectedEnd)
         {

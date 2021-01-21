@@ -173,7 +173,7 @@ namespace DevInstance.TimelineLib
                             // item.label = String.Format("{0:F1}", tl.GetElapsedThisPeriodHours(TimeProvider));
                             //}
                         }
-                        item.labeltooltip = tl.ElapsedTime.ToString();
+                        item.labeltooltip = $"{tl.StartTime.ToShortTimeString()} {tl.ElapsedTime.ToString()}";
 
                         bars.Add(item);
                     }
