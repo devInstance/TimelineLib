@@ -11,8 +11,6 @@ namespace DevInstance.TimelineLib
 {
     public partial class Heatline
     {
-        private ILogProvider LogProvider = new ConsoleLogProvider(LogLevel.DEBUG_EXTRA); //TODO: refactor
-
         private DateTime currentDateTime = DateTime.Now;
 
         private TimeRange timeRange;
