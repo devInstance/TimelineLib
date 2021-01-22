@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DevInstance.TimelineLib
 {
-    public partial class Timeline
+    public partial class Heatline
     {
         private ILogProvider LogProvider = new ConsoleLogProvider(LogLevel.DEBUG_EXTRA); //TODO: refactor
 
@@ -20,7 +20,7 @@ namespace DevInstance.TimelineLib
 
         private TimeScaleLabelItem[] TimeScaleLabel;
         private TimeScaleItem[] TimeScale;
-        private TimeBar[] TimeBars;
+        private HeatItem[] HeatItems;
 
         private int svgHeight;
 
@@ -36,7 +36,7 @@ namespace DevInstance.TimelineLib
                 cellWidthPercent = 100.0f / (float)timeRange.Span;
 
                 InitializeTimeScale();
-                InitializeTimeBars();
+                InitializeHeatlines();
                 StateHasChanged();
             }
         }
@@ -47,7 +47,7 @@ namespace DevInstance.TimelineLib
 
             if (IsTimeRangeFlexible)
             {
-                timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, Data);
+                //timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, Data);
             }
         }
 
@@ -108,53 +108,35 @@ namespace DevInstance.TimelineLib
             }
         }
 
-        private void InitializeTimeBars()
+        private void InitializeHeatlines()
         {
-            var bars = new List<TimeBar>();
+            var heatlines = new List<HeatItem>();
 
             if (Data != null)
             {
                 int n = 0;
-                foreach (var task in Data)
+                foreach (var line in Data)
                 {
-                    foreach (var tl in task.Items)
+                    foreach (var it in line.Items)
                     {
-                        float x = ((tl.StartTime.Hour + (tl.StartTime.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
-                        int y = n * 36 + 10;
-                        float width = ((float)tl.ElapsedTime.TotalMinutes / 60.0f * cellWidthPercent);
-                        int height = 26;
-                        var item = new TimeBar
+                        float x = ((it.Time.Hour + (it.Time.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
+                        int y = n * 36 + 24;
+                        var item = new HeatItem
                         {
-                            cssClass = "bar " + (task.CssClass != null ? task.CssClass.ToLower() : "white"),
+                            cssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
                             x = $"{x}%",
                             y = $"{y}",
-                            width = $"{width}%",
-                            height = $"{height}",
-                            labelx = $"{x + 0.25}%",
-                            labely = $"{y + 18}"
+                            value = it.Value
                         };
 
-                        if (width > 3.0)
-                        {
-                            //if (task.IsRunning && task.ActiveTimeLogItem.Id == tl.Id)
-                            //{
-                            //    item.label = String.Format("{0:F1} hrs", task.GetTotalHoursSpentTodayTillNow(TimeProvider));
-                            //}
-                            //else
-                            //{
-                            // item.label = String.Format("{0:F1}", tl.GetElapsedThisPeriodHours(TimeProvider));
-                            //}
-                        }
-                        item.labeltooltip = $"{tl.StartTime.ToShortTimeString()} {tl.ElapsedTime.ToString()}";
-
-                        bars.Add(item);
+                        heatlines.Add(item);
                     }
 
                     n++;
                 }
             }
 
-            TimeBars = bars.ToArray();
+            HeatItems = heatlines.ToArray();
         }
 
 
@@ -163,7 +145,7 @@ namespace DevInstance.TimelineLib
             using (var l = log.DebugExScope())
             {
                 InitializeTimeScale();
-                InitializeTimeBars();
+                InitializeHeatlines();
 
                 return true;
             }

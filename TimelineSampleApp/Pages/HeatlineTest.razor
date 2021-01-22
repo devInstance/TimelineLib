@@ -1,0 +1,62 @@
+﻿@page "/heatline"
+
+<p>
+    Timeline components requires only one parameter <code>Data</code> to function.
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        See example
+    </a>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        Example:
+        <code>
+            @("<DevInstance.TimelineLib.Timeline Data=\"Lines\"></DevInstance.TimelineLib.Timeline>");
+        </code>
+        <pre>
+        <code>
+protected async override Task OnInitializedAsync()
+{
+    var now = new DateTime(2021, 1, 12, 0, 0, 0);
+
+    Lines = new TimelineLib.Timeline.Line[] {
+        new TimelineLib.Timeline.Line
+        {
+            Title = "test" ,
+            CssClass = "orange",
+            Items = new TimelineLib.Timeline.Item[]
+            {
+                new TimelineLib.Timeline.Item { StartTime = now, ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(2), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(4), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(8), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(12), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(20), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(23), ElapsedTime = new TimeSpan(0, 30, 0)},
+            }
+        },
+        new TimelineLib.Timeline.Line
+        {
+            Title = "test 2" ,
+            CssClass = "blue",
+            Items = new TimelineLib.Timeline.Item[]
+            {
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(3), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(11), ElapsedTime = new TimeSpan(0, 30, 0)},
+                new TimelineLib.Timeline.Item { StartTime = now.AddHours(16.25), ElapsedTime = new TimeSpan(0, 30, 0)}
+            }
+        }
+    }
+}
+        </code>
+    </pre>
+    </div>
+</div>
+
+<h2>Default behaviour</h2>
+
+<p>
+    <DevInstance.TimelineLib.Heatline Data="Lines" StartTime="0.0" EndTime="24.0"></DevInstance.TimelineLib.Heatline>
+</p>
+
+@code{
+}
