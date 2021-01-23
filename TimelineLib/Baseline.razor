@@ -1,0 +1,68 @@
+﻿<div>
+    @if (TimeScaleLabel != null)
+    {
+        @foreach (var item in TimeScaleLabel)
+        {
+            <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
+        }
+        <div>
+            <svg class="chart" width="100%" style="z-index:-1;" height="@(Height)" role="img">
+                @foreach (var item in TimeScale)
+                {
+                    <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
+                    <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
+                }
+                @DataTemplate
+            </svg>
+        </div>
+    }
+</div>
+
+@inject ILogProvider LogProvider;
+
+@code {
+
+    /// <summary>
+    /// Start time of the scale (default 8.0 => 8:00 AM)
+    /// </summary>
+    [Parameter]
+    public double? StartTime { get; set; }
+    /// <summary>
+    /// End time of the scale (default 20.0 => 8:00 PM)
+    /// </summary>
+    [Parameter]
+    public double? EndTime { get; set; }
+    /// <summary>
+    /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
+    /// </summary>
+    [Parameter]
+    public RenderFragment DataTemplate { get; set; }
+    /// <summary>
+    /// Height of the control (in pixels)
+    /// </summary>
+    [Parameter]
+    public int Height { get; set; }
+
+    public struct Item
+    {
+        public string Title;
+
+        public DateTime StartTime { get; set; }
+        public TimeSpan ElapsedTime { get; set; }
+
+        public DateTime EndTime => StartTime + ElapsedTime;
+    }
+
+    public struct Line
+    {
+        public string Title;
+        public string Descritpion;
+        public string CssClass;
+
+        public IEnumerable<Item> Items;
+
+        public Object ItemObject;
+
+    }
+
+}

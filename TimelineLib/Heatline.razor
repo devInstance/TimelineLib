@@ -1,44 +1,20 @@
-﻿<div>
-    @if (TimeScaleLabel != null)
-    {
-        @foreach (var item in TimeScaleLabel)
+﻿<Baseline Height="@svgHeight" StartTime="@(timeRange.StartTime)" EndTime="@(timeRange.EndTime)">
+    <DataTemplate>
+        @for (int i = 0; i < HeatItems.Length; i++)
         {
-            <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
+            var item = HeatItems[i];
+            <g>
+                <circle cx="@(item.x)" cy="@(item.y)" r="10" style="fill:@(item.cssClass);fill-opacity:@item.value;">
+                    <title>some text</title>
+                </circle>
+            </g>
         }
-        <div>
-            <svg class="chart" width="100%" style="z-index:-1;" height="@(svgHeight)" role="img">
-                @foreach (var item in TimeScale)
-                {
-                    <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
-                    <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
-                }
-                @for (int i = 0; i < HeatItems.Length; i++)
-                {
-                    var item = HeatItems[i];
-                    <g>
-                        <circle cx="@(item.x)" cy="@(item.y)" r="10" style="fill:@(item.cssClass);fill-opacity:@item.value;">
-                            <title>some text</title>
-                        </circle>
-                    </g>
-                }
-            </svg>
-        </div>
-    }
-</div>
+    </DataTemplate> 
+</Baseline>
 
 @inject ILogProvider LogProvider;
 
 @code {
-
-    /// <summary>
-    /// Current date and time
-    /// </summary>
-    [Parameter]
-    public DateTime CurrentDateTime
-    {
-        get => currentDateTime;
-        set => currentDateTime = value;
-    }
 
     /// <summary>
     /// Start time of the scale (default 8.0 => 8:00 AM)

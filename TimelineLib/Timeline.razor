@@ -1,41 +1,27 @@
-﻿<div>
-    @if (TimeScaleLabel != null)
-    {
-        @foreach (var item in TimeScaleLabel)
+﻿<Baseline Height="@svgHeight" StartTime="@(timeRange.StartTime)" EndTime="@(timeRange.EndTime)">
+    <DataTemplate>
+        @foreach (var bar in TimeBars)
         {
-            <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
+            <g class="@(bar.cssClass)">
+                <rect x="@(bar.x)"
+                      y="@(bar.y)"
+                      width="@(bar.width)"
+                      height="@(bar.height)">
+                    <title>@(bar.labeltooltip)</title>
+                </rect>
+            </g>
+            @if (!string.IsNullOrEmpty(bar.label))
+            {
+                <g class="bar">
+                    <text x="@(bar.labelx)"
+                          y="@(bar.labely)">
+                        @(bar.label)
+                    </text>
+                </g>
+            }
         }
-        <div>
-            <svg class="chart" width="100%" style="z-index:-1;" height="@(svgHeight)" role="img">
-                @foreach (var item in TimeScale)
-                {
-                    <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
-                    <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
-                }
-                @foreach (var bar in TimeBars)
-                {
-                    <g class="@(bar.cssClass)">
-                        <rect x="@(bar.x)"
-                              y="@(bar.y)"
-                              width="@(bar.width)"
-                              height="@(bar.height)">
-                            <title>@(bar.labeltooltip)</title>
-                        </rect>
-                    </g>
-                    @if (!string.IsNullOrEmpty(bar.label))
-                    {
-                        <g class="bar">
-                            <text x="@(bar.labelx)"
-                                  y="@(bar.labely)">
-                                @(bar.label)
-                            </text>
-                        </g>
-                    }
-                }
-            </svg>
-        </div>
-    }
-</div>
+    </DataTemplate>
+</Baseline>
 
 @inject ILogProvider LogProvider;
 
