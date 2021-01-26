@@ -26,7 +26,7 @@ namespace DevInstance.TimelineLib
             using (var l = log.DebugExScope())
             {
                 CalculateTimeRange();
-
+                l.D($"timeRange.Span={timeRange.Span}");
                 cellWidthPercent = 100.0f / (float)timeRange.Span;
 
                 InitializeTimeScale();
@@ -41,7 +41,7 @@ namespace DevInstance.TimelineLib
 
             if (IsTimeRangeFlexible)
             {
-                //timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, Data);
+                timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, TimeInterval, Data);
             }
         }
 
@@ -54,7 +54,7 @@ namespace DevInstance.TimelineLib
 
                 if (Data != null)
                 {
-                    svgHeight = Data.Count() * 36 + 10; //TODO: refactor
+                    svgHeight = Data.Count() * 36 + 10; //TODO: re-factor
                 }
                 else
                 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DevInstance.TimelineLib.Timeline;
+using DevInstance.TimelineLib;
 
 namespace DevInstance.TimelineLib.Utils
 {
@@ -16,7 +16,7 @@ namespace DevInstance.TimelineLib.Utils
                                     end.HasValue ? end.Value : DefaultValues.END_TIME);
         }
 
-        public static TimeRange CalculateDynamicTimeRange(TimeRange inRange, IEnumerable<Line> data)
+        public static TimeRange CalculateDynamicTimeRange(TimeRange inRange, IEnumerable<Timeline.Line> data)
         {
             var isMinUpdated = false;
             var isMaxUpdated = false;
@@ -26,9 +26,9 @@ namespace DevInstance.TimelineLib.Utils
 
             foreach (var line in data)
             {
-                foreach(var item in line.Items)
+                foreach (var item in line.Items)
                 {
-                    if(item.StartTime.TimeOfDay.TotalHours < minStart)
+                    if (item.StartTime.TimeOfDay.TotalHours < minStart)
                     {
                         isMinUpdated = true;
                         minStart = item.StartTime.TimeOfDay.TotalHours;
@@ -50,6 +50,45 @@ namespace DevInstance.TimelineLib.Utils
             if (isMaxUpdated)
             {
                 maxEnd = (int)maxEnd + 1;
+            }
+
+            return new TimeRange(minStart, maxEnd);
+        }
+
+        public static TimeRange CalculateDynamicTimeRange(TimeRange inRange, double timeInterval, IEnumerable<Heatline.Line> data)
+        {
+            var isMinUpdated = false;
+            var isMaxUpdated = false;
+
+            var minStart = inRange.StartTime;
+            var maxEnd = inRange.EndTime;
+
+            foreach (var line in data)
+            {
+                foreach(var item in line.Items)
+                {
+                    if(item.Time.TimeOfDay.TotalHours < minStart)
+                    {
+                        isMinUpdated = true;
+                        minStart = item.Time.TimeOfDay.TotalHours;
+                    }
+
+                    if (item.Time.TimeOfDay.TotalHours > maxEnd)
+                    {
+                        isMaxUpdated = true;
+                        maxEnd = item.Time.TimeOfDay.TotalHours;
+                    }
+                }
+            }
+
+            //Add margins
+            if (isMinUpdated)
+            {
+                minStart = (int)minStart;
+            }
+            if (isMaxUpdated)
+            {
+                maxEnd = (int)maxEnd + timeInterval;
             }
 
             return new TimeRange(minStart, maxEnd);
