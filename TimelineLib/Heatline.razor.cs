@@ -78,10 +78,10 @@ namespace DevInstance.TimelineLib
                         int y = n * 36 + 24;
                         var item = new HeatItem
                         {
-                            cssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
-                            x = $"{x}%",
-                            y = $"{y}",
-                            value = it.Value
+                            CssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
+                            X = $"{x}%",
+                            Y = $"{y}",
+                            Value = it.Value
                         };
 
                         heatlines.Add(item);

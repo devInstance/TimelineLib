@@ -82,27 +82,19 @@ namespace DevInstance.TimelineLib
                         int height = 26;
                         var item = new TimeBar
                         {
-                            cssClass = "bar " + (task.CssClass != null ? task.CssClass.ToLower() : "white"),
-                            x = $"{x}%",
-                            y = $"{y}",
-                            width = $"{width}%",
-                            height = $"{height}",
-                            labelx = $"{x + 0.25}%",
-                            labely = $"{y + 18}"
+                            CssClass = "bar " + (task.CssClass != null ? task.CssClass.ToLower() : "white"),
+                            Left = $"{x}%",
+                            Top = $"{y}",
+                            Width = $"{width}%",
+                            Height = $"{height}",
+                            LabelX = $"{x + 0.25}%",
+                            LabelY = $"{y + 18}"
                         };
 
-                        if (width > 3.0)
-                        {
-                            //if (task.IsRunning && task.ActiveTimeLogItem.Id == tl.Id)
-                            //{
-                            //    item.label = String.Format("{0:F1} hrs", task.GetTotalHoursSpentTodayTillNow(TimeProvider));
-                            //}
-                            //else
-                            //{
-                            // item.label = String.Format("{0:F1}", tl.GetElapsedThisPeriodHours(TimeProvider));
-                            //}
-                        }
-                        item.labeltooltip = $"{tl.StartTime.ToShortTimeString()} {tl.ElapsedTime.ToString()}";
+                        var tm = tl.ElapsedTime;
+                        //TODO: i18n review
+                        var timeFormat = tm.Hours > 0 ? "{0}: {1:hh} hours and {1:%m} minutes" : "{0}: {1:%m} minutes";
+                        item.Tooltip = String.Format(timeFormat, tl.Title, tm);
 
                         bars.Add(item);
                     }

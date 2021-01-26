@@ -2,9 +2,9 @@
 {
     struct TimeScaleLabelItem
     {
-        public string cssClass;
-        public string divStyle;
-        public string labelText;
+        public string CssClass { get; set; }
+        public string DivStyle { get; set; }
+        public string LabelText { get; set; }
     }
 }
 

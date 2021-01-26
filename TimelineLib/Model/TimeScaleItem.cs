@@ -8,10 +8,10 @@ namespace DevInstance.TimelineLib.Model
 {
     struct TimeScaleItem
     {
-        public string lineonex;
-        public string lineoney;
+        public string HourLineX { get; set; }
+        public string HourLineY { get; set; }
 
-        public string linetwox;
-        public string linetwoy;
+        public string HalfLineX { get; set; }
+        public string HalfLineY { get; set; }
     }
 }

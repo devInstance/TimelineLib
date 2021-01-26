@@ -3,14 +3,14 @@
     {
         @foreach (var item in TimeScaleLabel)
         {
-            <div class="@(item.cssClass)" style="@(item.divStyle)"><small>@(item.labelText)</small></div>
+            <div class="@(item.CssClass)" style="@(item.DivStyle)"><small>@(item.LabelText)</small></div>
         }
         <div>
             <svg class="chart" width="100%" style="z-index:-1;" height="@(Height)" role="img">
                 @foreach (var item in TimeScale)
                 {
-                    <line x1="@(item.lineonex)" y1="0" x2="@(item.lineonex)" y2="@(item.lineoney)" stroke="grey"></line>
-                    <line x1="@(item.linetwox)" y1="0" x2="@(item.linetwox)" y2="@(item.linetwoy)" stroke="grey"></line>
+                    <line x1="@(item.HourLineX)" y1="0" x2="@(item.HourLineX)" y2="@(item.HourLineY)" stroke="grey"></line>
+                    <line x1="@(item.HalfLineX)" y1="0" x2="@(item.HalfLineX)" y2="@(item.HalfLineY)" stroke="grey"></line>
                 }
                 @DataTemplate
             </svg>

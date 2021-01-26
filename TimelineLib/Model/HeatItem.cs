@@ -8,9 +8,9 @@ namespace DevInstance.TimelineLib.Model
 {
     struct HeatItem
     {
-        public string cssClass;
-        public string x;
-        public string y;
-        public float value;
+        public string CssClass { get; set; }
+        public string X { get; set; }
+        public string Y { get; set; }
+        public float Value { get; set; }
     }
 }

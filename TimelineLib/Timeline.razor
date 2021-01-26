@@ -2,20 +2,20 @@
     <DataTemplate>
         @foreach (var bar in TimeBars)
         {
-            <g class="@(bar.cssClass)">
-                <rect x="@(bar.x)"
-                      y="@(bar.y)"
-                      width="@(bar.width)"
-                      height="@(bar.height)">
-                    <title>@(bar.labeltooltip)</title>
+            <g class="@(bar.CssClass)">
+                <rect x="@(bar.Left)"
+                      y="@(bar.Top)"
+                      width="@(bar.Width)"
+                      height="@(bar.Height)">
+                    <title>@(bar.Tooltip)</title>
                 </rect>
             </g>
-            @if (!string.IsNullOrEmpty(bar.label))
+            @if (!string.IsNullOrEmpty(bar.Label))
             {
                 <g class="bar">
-                    <text x="@(bar.labelx)"
-                          y="@(bar.labely)">
-                        @(bar.label)
+                    <text x="@(bar.LabelX)"
+                          y="@(bar.LabelY)">
+                        @(bar.Label)
                     </text>
                 </g>
             }

@@ -3,9 +3,6 @@ using DevInstance.TimelineLib.Model;
 using DevInstance.TimelineLib.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInstance.TimelineLib
 {
@@ -44,20 +41,20 @@ namespace DevInstance.TimelineLib
                 {
                     var item = new TimeScaleLabelItem();
 
-                    item.cssClass = time % 2 == 1 ? "odd-label" : "even-label";
-                    item.labelText = now.AddHours(time).ToString("hhtt").ToLower();
+                    item.CssClass = time % 2 == 1 ? "odd-label" : "even-label";
+                    item.LabelText = now.AddHours(time).ToString("hhtt").ToLower(); //TODO: needs i18n review
 
                     if (time == timeRange.StartTime || time == timeRange.EndTime - 1)
                     {
-                        item.divStyle = $"max-width:{cellWidthPercent - 1}%;width:{cellWidthPercent - 1}%";
+                        item.DivStyle = $"max-width:{cellWidthPercent - 1}%;width:{cellWidthPercent - 1}%";
                     }
                     else if (time == timeRange.EndTime)
                     {
-                        item.divStyle = $"max-width:1%;width:1%";
+                        item.DivStyle = $"max-width:1%;width:1%";
                     }
                     else
                     {
-                        item.divStyle = $"max-width:{cellWidthPercent}%;width:{cellWidthPercent}%";
+                        item.DivStyle = $"max-width:{cellWidthPercent}%;width:{cellWidthPercent}%";
                     }
                     labels.Add(item);
                 }
@@ -68,10 +65,10 @@ namespace DevInstance.TimelineLib
                 {
                     var item = new TimeScaleItem
                     {
-                        lineonex = $"{i * cellWidthPercent}%",
-                        lineoney = "16",
-                        linetwox = $"{i * cellWidthPercent + cellWidthPercent / 2}%",
-                        linetwoy = "8"
+                        HourLineX = $"{i * cellWidthPercent}%",
+                        HourLineY = DefaultValues.HourLineLength,
+                        HalfLineX = $"{i * cellWidthPercent + cellWidthPercent / 2}%",
+                        HalfLineY = DefaultValues.HalfHourLineLength
                     };
                     items.Add(item);
                 }
