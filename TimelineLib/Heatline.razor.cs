@@ -18,11 +18,11 @@ namespace DevInstance.TimelineLib
 
         private int svgHeight;
 
-        private ILog log;
+        private IScopeLog log;
 
         protected override void OnInitialized()
         {
-            log = LogProvider.CreateLogger(this);
+            log = ScopeManager.CreateLogger(this);
             using (var l = log.DebugExScope())
             {
                 CalculateTimeRange();

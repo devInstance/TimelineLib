@@ -14,7 +14,7 @@ namespace DevInstance.Timeline.Sample.TimelineSampleApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddConsoleLogging(LogScope.LogLevel.DEBUG_EXTRA);
+            builder.Services.AddConsoleLogging(LogScope.LogLevel.DEBUG_EXTRA, true);
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

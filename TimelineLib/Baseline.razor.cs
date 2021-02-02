@@ -16,11 +16,11 @@ namespace DevInstance.TimelineLib
         private TimeScaleLabelItem[] TimeScaleLabel;
         private TimeScaleItem[] TimeScale;
 
-        private ILog log;
+        private IScopeLog log;
 
         protected override void OnInitialized()
         {
-            log = LogProvider.CreateLogger(this);
+            log = ScopeManager.CreateLogger(this);
             using (var l = log.DebugExScope())
             {
                 timeRange = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
