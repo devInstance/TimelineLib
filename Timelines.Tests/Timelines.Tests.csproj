@@ -9,7 +9,7 @@
 
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 
-    <PackageId>DevInstance.TimelineLib.Tests</PackageId>
+    <PackageId>DevInstance.Timelines.Tests</PackageId>
 
     <Authors>Yuriy Frankiv</Authors>
 
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TimelineLib\TimelineLib.csproj" />
+    <ProjectReference Include="..\TimelineLib\Timelines.csproj" />
   </ItemGroup>
 
 </Project>

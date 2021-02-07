@@ -1,6 +1,4 @@
-﻿<Baseline Height="@svgHeight" StartTime="@(timeRange.StartTime)" EndTime="@(timeRange.EndTime)">
-    <DataTemplate>
-        @for (int i = 0; i < HeatItems.Length; i++)
+﻿        @for (int i = 0; i < HeatItems.Length; i++)
         {
             var item = HeatItems[i];
             <g>
@@ -9,8 +7,6 @@
                 </circle>
             </g>
         }
-    </DataTemplate> 
-</Baseline>
 
 @inject IScopeManager ScopeManager;
 
@@ -19,13 +15,14 @@
     /// <summary>
     /// Start time of the scale (default 8.0 => 8:00 AM)
     /// </summary>
-    [Parameter]
+    [CascadingParameter(Name = "StartTime")]
     public double? StartTime { get; set; }
     /// <summary>
     /// End time of the scale (default 20.0 => 8:00 PM)
     /// </summary>
-    [Parameter]
+    [CascadingParameter(Name = "EndTime")]
     public double? EndTime { get; set; }
+
     /// <summary>
     /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
     /// </summary>

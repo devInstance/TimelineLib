@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timelines", "Timelines\Timelines.csproj", "{5348CFE7-C00B-4625-96FE-DF4C0F443B12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimelinesSampleApp", "TimelinesSampleApp\TimelinesSampleApp.csproj", "{96ED7BE2-077F-4742-B430-3D3971535364}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5348CFE7-C00B-4625-96FE-DF4C0F443B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5348CFE7-C00B-4625-96FE-DF4C0F443B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5348CFE7-C00B-4625-96FE-DF4C0F443B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5348CFE7-C00B-4625-96FE-DF4C0F443B12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96ED7BE2-077F-4742-B430-3D3971535364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96ED7BE2-077F-4742-B430-3D3971535364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96ED7BE2-077F-4742-B430-3D3971535364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96ED7BE2-077F-4742-B430-3D3971535364}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A01EBCC-C31B-44F2-A6F9-89883438F430}
+	EndGlobalSection
+EndGlobal

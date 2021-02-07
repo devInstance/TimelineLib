@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevInstance.TimelineLib.Model
+namespace DevInstance.Timelines.Model
 {
     public static class DefaultValues
     {

@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/timeline"
 
 <p>
     Timeline components requires only one parameter <code>Data</code> to function.
@@ -55,14 +55,39 @@ protected async override Task OnInitializedAsync()
 <h2>Default behaviour</h2>
 
 <p>
-    <DevInstance.TimelineLib.Timeline Data="Lines"></DevInstance.TimelineLib.Timeline>
+    <DevInstance.Timelines.Chart>
+        <Lines>
+            <DevInstance.Timelines.Timeline Data="Lines">
+            </DevInstance.Timelines.Timeline>
+        </Lines>
+    </DevInstance.Timelines.Chart>
 </p>
 
 <h2>Flexible timescale</h2>
-<DevInstance.TimelineLib.Timeline Data="Lines" IsTimeRangeFlexible="true"></DevInstance.TimelineLib.Timeline>
+<DevInstance.Timelines.Chart IsTimeRangeFlexible="true">
+    <Lines>
+        <DevInstance.Timelines.Timeline Data="Lines">
+        </DevInstance.Timelines.Timeline>
+    </Lines>
+</DevInstance.Timelines.Chart>
 
 <h2>Custom timescale</h2>
-<DevInstance.TimelineLib.Timeline Data="Lines" StartTime="5" EndTime="14"></DevInstance.TimelineLib.Timeline>
+<p>
+    Start: @startTime
+    End: @endTime
+</p>
+<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">-Hour</button>
+<button class="btn btn-default" @onclick="@(() => { startTime++; StateHasChanged(); })">+Hour</button>
+@*<button class="btn btn-default" @onclick="@(() => { StateHasChanged(); })">-Line</button>
+<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">+Line</button>*@
+<DevInstance.Timelines.Chart StartTime="startTime" EndTime="endTime">
+    <Lines>
+        <DevInstance.Timelines.Timeline Data="Lines">
+        </DevInstance.Timelines.Timeline>
+    </Lines>
+</DevInstance.Timelines.Chart>
 
 @code{
+    public double startTime = 5.0;
+    public double endTime = 14.0;
 }

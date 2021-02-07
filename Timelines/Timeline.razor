@@ -1,0 +1,83 @@
+﻿@foreach (var bar in TimeBars)
+{
+    <g class="@(bar.CssClass)">
+        <rect x="@(bar.Left)"
+                y="@(bar.Top)"
+                width="@(bar.Width)"
+                height="@(bar.Height)">
+            <title>@(bar.Tooltip)</title>
+        </rect>
+    </g>
+    @if (!string.IsNullOrEmpty(bar.Label))
+    {
+        <g class="bar">
+            <text x="@(bar.LabelX)"
+                    y="@(bar.LabelY)">
+                @(bar.Label)
+            </text>
+        </g>
+    }
+}
+
+@inject IScopeManager ScopeManager;
+
+@code {
+
+    [CascadingParameter(Name = "Parent")]
+    ITimelineChart Parent { get; set; }
+
+    /// <summary>
+    /// Data
+    /// </summary>
+    [Parameter]
+    public IEnumerable<Line> Data { get; set; }
+    /// <summary>
+    /// Format of the tool tip label for the item.
+    /// It should have two parameters: 0 - Description (see Item.Description)
+    ///    and 1 - elapsed time span (see Item.ElapsedTime). Default value: "{0}: {1:hh} hours and {1:%m} minutes"
+    /// </summary>
+    public string ItemLabelFormat { get; set; }
+    /// <summary>
+    /// Timeline item
+    /// </summary>
+    public struct Item
+    {
+        /// <summary>
+        /// Items description
+        /// </summary>
+        public string Description;
+
+        public DateTime StartTime { get; set; }
+        public TimeSpan ElapsedTime { get; set; }
+
+        public DateTime EndTime => StartTime + ElapsedTime;
+    }
+    //Line item
+    public struct Line
+    {
+        /// <summary>
+        /// Lines's title
+        /// </summary>
+        public string Title;
+        /// <summary>
+        /// Lines description
+        /// </summary>
+        public string Descritpion;
+        /// <summary>
+        /// Color of the line. Default value "Undefined" will use white color. Use "Custom" to turn default colorshin scheme off.
+        /// </summary>
+        public ItemColor Color;
+        /// <summary>
+        /// Suplemental css class for the items in this line
+        /// </summary>
+        public string CssClass;
+        /// <summary>
+        /// Items for this line. See <ref>Item</ref>
+        /// </summary>
+        public IEnumerable<Item> Items;
+        /// <summary>
+        /// Optinal object associated with this line
+        /// </summary>
+        public Object ItemObject;
+    }
+}

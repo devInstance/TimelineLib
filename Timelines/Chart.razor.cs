@@ -1,12 +1,12 @@
 ﻿using DevInstance.LogScope;
-using DevInstance.TimelineLib.Model;
-using DevInstance.TimelineLib.Utils;
+using DevInstance.Timelines.Model;
+using DevInstance.Timelines.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace DevInstance.TimelineLib
+namespace DevInstance.Timelines
 {
-    public partial class Baseline
+    public partial class Chart : ITimelineChart
     {
         private DateTime currentDateTime = DateTime.Now;
 
@@ -18,24 +18,54 @@ namespace DevInstance.TimelineLib
 
         private IScopeLog log;
 
+        TimeRange ITimelineChart.Range => timeRange;
+
+        bool ITimelineChart.IsTimeRangeFlexible => IsTimeRangeFlexible;
+
+        DateTime ITimelineChart.CurrentDateTime => CurrentDateTime;
+
         protected override void OnInitialized()
         {
             log = ScopeManager.CreateLogger(this);
             using (var l = log.DebugExScope())
             {
                 timeRange = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
-                cellWidthPercent = 100.0f / (float)timeRange.Span;
 
-                InitializeTimeScale();
-                StateHasChanged();
+                if(Lines == null)
+                {
+                    // if no child template then render scale for the default range
+                    RenderTimeScale();
+                }
+                //StateHasChanged();
             }
         }
 
-        private void InitializeTimeScale()
+        protected override void OnParametersSet()
+        {
+            using (var l = log.DebugExScope())
+            {
+                base.OnParametersSet();
+
+                l.DE($"Parameters {StartTime} - {EndTime}");
+                var r = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
+
+                if(r != timeRange)
+                {
+                    timeRange = r;
+                    l.DE($"New time range");
+                    RenderTimeScale();
+                    StateHasChanged();
+                }
+            }
+        }
+
+        private void RenderTimeScale()
         {
             var now = DateTime.Today;
             using (var l = log.DebugExScope())
             {
+                cellWidthPercent = 100.0f / (float)timeRange.Span;
+
                 var labels = new List<TimeScaleLabelItem>();
                 for (int time = (int)timeRange.StartTime; time <= timeRange.EndTime; time += 1)
                 {
@@ -81,11 +111,37 @@ namespace DevInstance.TimelineLib
         {
             using (var l = log.DebugExScope())
             {
-                InitializeTimeScale();
-
-                return true;
+                //InitializeTimeScale();
+                var res = base.ShouldRender();
+                l.DE($"result = ${res}");
+                return res;
             }
         }
 
+        void ITimelineChart.UpdateParentsHeight(int value)
+        {
+            using (var l = log.DebugExScope())
+            {
+                var newValue = value.ToString();
+                if (Height != newValue)
+                {
+                    Height = newValue;
+                    StateHasChanged();
+                }
+            }
+        }
+
+        void ITimelineChart.UpdateParentsTimeRange(TimeRange r)
+        {
+            using (var l = log.DebugExScope())
+            {
+                if (TimeScaleLabel == null || timeRange != r)
+                {
+                    timeRange = r;
+                    RenderTimeScale();
+                    StateHasChanged();
+                }
+            }
+        }
     }
 }

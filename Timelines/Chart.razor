@@ -5,17 +5,23 @@
         {
             <div class="@(item.CssClass)" style="@(item.DivStyle)"><small>@(item.LabelText)</small></div>
         }
-        <div>
-            <svg class="chart" width="100%" style="z-index:-1;" height="@(Height)" role="img">
+    }
+    <div>
+        <svg class="chart" width="100%" style="z-index:-1;" height="@(Height)" role="img">
+            @if (TimeScale != null)
+            {
                 @foreach (var item in TimeScale)
                 {
                     <line x1="@(item.HourLineX)" y1="0" x2="@(item.HourLineX)" y2="@(item.HourLineY)" stroke="grey"></line>
                     <line x1="@(item.HalfLineX)" y1="0" x2="@(item.HalfLineX)" y2="@(item.HalfLineY)" stroke="grey"></line>
                 }
-                @DataTemplate
-            </svg>
-        </div>
-    }
+            }
+            <CascadingValue Value="this" Name="Parent">
+                @Lines
+            </CascadingValue>
+        </svg>
+    </div>
+
 </div>
 
 @inject IScopeManager ScopeManager;
@@ -36,33 +42,31 @@
     /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
     /// </summary>
     [Parameter]
-    public RenderFragment DataTemplate { get; set; }
+    public bool IsTimeRangeFlexible { get; set; }
+
     /// <summary>
-    /// Height of the control (in pixels)
+    /// Current date and time
     /// </summary>
     [Parameter]
-    public int Height { get; set; }
-
-    public struct Item
+    public DateTime CurrentDateTime
     {
-        public string Title;
-
-        public DateTime StartTime { get; set; }
-        public TimeSpan ElapsedTime { get; set; }
-
-        public DateTime EndTime => StartTime + ElapsedTime;
+        get => currentDateTime;
+        set => currentDateTime = value;
     }
 
-    public struct Line
-    {
-        public string Title;
-        public string Descritpion;
-        public string CssClass;
-
-        public IEnumerable<Item> Items;
-
-        public Object ItemObject;
-
-    }
+    [Parameter]
+    public RenderFragment Lines { get; set; }
+    [Parameter]
+    public string CssClass { get; set; }
+    [Parameter]
+    public string Width { get; set; }
+    [Parameter]
+    public string Height { get; set; }
+    [Parameter]
+    public bool ShowGrid { get; set; }
+    [Parameter]
+    public bool ShowTimeLabel { get; set; }
+    [Parameter]
+    public bool ShowTimeLines { get; set; }
 
 }

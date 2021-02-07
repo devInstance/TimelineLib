@@ -1,4 +1,4 @@
-﻿namespace DevInstance.TimelineLib.Model
+﻿namespace DevInstance.Timelines.Model
 {
     struct TimeScaleLabelItem
     {

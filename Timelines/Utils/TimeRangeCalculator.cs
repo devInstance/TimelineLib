@@ -1,12 +1,7 @@
-﻿using DevInstance.TimelineLib.Model;
-using System;
+﻿using DevInstance.Timelines.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevInstance.TimelineLib;
 
-namespace DevInstance.TimelineLib.Utils
+namespace DevInstance.Timelines.Utils
 {
     public static class TimeRangeCalculator
     {

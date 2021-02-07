@@ -1,13 +1,13 @@
 ﻿using DevInstance.LogScope;
-using DevInstance.TimelineLib.Model;
-using DevInstance.TimelineLib.Utils;
+using DevInstance.Timelines.Model;
+using DevInstance.Timelines.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevInstance.TimelineLib
+namespace DevInstance.Timelines
 {
     public partial class Heatline
     {
@@ -31,7 +31,7 @@ namespace DevInstance.TimelineLib
 
                 InitializeTimeScale();
                 InitializeHeatlines();
-                StateHasChanged();
+//                StateHasChanged();
             }
         }
 
@@ -95,16 +95,16 @@ namespace DevInstance.TimelineLib
         }
 
 
-        protected override bool ShouldRender()
-        {
-            using (var l = log.DebugExScope())
-            {
-                InitializeTimeScale();
-                InitializeHeatlines();
+        //protected override bool ShouldRender()
+        //{
+        //    using (var l = log.DebugExScope())
+        //    {
+        //        InitializeTimeScale();
+        //        InitializeHeatlines();
 
-                return true;
-            }
-        }
+        //        return true;
+        //    }
+        //}
 
     }
 }

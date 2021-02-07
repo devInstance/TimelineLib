@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>DevInstance.TimelineLib</AssemblyName>
-    <RootNamespace>DevInstance.TimelineLib</RootNamespace>
+    <AssemblyName>DevInstance.Timelines</AssemblyName>
+    <RootNamespace>DevInstance.Timelines</RootNamespace>
     <Authors>Yuriy Frankiv</Authors>
     <Company>DevInstance</Company>
     <Product>TimelineLib</Product>
