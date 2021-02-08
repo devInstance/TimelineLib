@@ -1,43 +1,30 @@
-﻿        @for (int i = 0; i < HeatItems.Length; i++)
-        {
-            var item = HeatItems[i];
-            <g>
-                <circle cx="@(item.X)" cy="@(item.Y)" r="10" style="fill:@(item.CssClass);fill-opacity:@item.Value;">
-                    <title>some text</title>
-                </circle>
-            </g>
-        }
+﻿@for (int i = 0; i < HeatItems.Length; i++)
+{
+    var item = HeatItems[i];
+    <g>
+        <circle cx="@(item.X)" cy="@(item.Y)" r="10" style="fill:@(item.CssClass);fill-opacity:@item.Value;">
+            <title>some text</title>
+        </circle>
+    </g>
+}
 
 @inject IScopeManager ScopeManager;
 
 @code {
 
-    /// <summary>
-    /// Start time of the scale (default 8.0 => 8:00 AM)
-    /// </summary>
-    [CascadingParameter(Name = "StartTime")]
-    public double? StartTime { get; set; }
-    /// <summary>
-    /// End time of the scale (default 20.0 => 8:00 PM)
-    /// </summary>
-    [CascadingParameter(Name = "EndTime")]
-    public double? EndTime { get; set; }
+    [CascadingParameter(Name = "Parent")]
+    ITimelineChart Parent { get; set; }
 
-    /// <summary>
-    /// If true, StartTime and EndTime will automatically adjust based on the data to display all the items
-    /// </summary>
-    [Parameter]
-    public bool IsTimeRangeFlexible { get; set; }
-    /// <summary>
-    /// Time interval between values in hours
-    /// </summary>
-    [Parameter]
-    public double TimeInterval { get; set; }
     /// <summary>
     /// Data
     /// </summary>
     [Parameter]
     public IEnumerable<Line> Data { get; set; }
+    /// <summary>
+    /// Time interval between values in hours
+    /// </summary>
+    [Parameter]
+    public double TimeInterval { get; set; }
 
     public struct Item
     {

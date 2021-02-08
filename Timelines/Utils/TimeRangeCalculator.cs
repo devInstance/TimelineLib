@@ -7,8 +7,23 @@ namespace DevInstance.Timelines.Utils
     {
         public static TimeRange CreateTimeRange(double? start, double? end)
         {
-            return new TimeRange(start.HasValue ? start.Value : DefaultValues.START_TIME,
-                                    end.HasValue ? end.Value : DefaultValues.END_TIME);
+            return new TimeRange(Normilize(start, DefaultValues.START_TIME),
+                                    Normilize(end, DefaultValues.END_TIME));
+        }
+
+        private static double Normilize(double? value, double defaultValue)
+        {
+            if (!value.HasValue) return defaultValue;
+
+            if (value.Value < 0.0)
+            {
+                return 0.0;
+            }
+            else if (value.Value > 24.0)
+            {
+                return 24.0;
+            }
+            return value.Value;
         }
 
         public static TimeRange CalculateDynamicTimeRange(TimeRange inRange, IEnumerable<Timeline.Line> data)

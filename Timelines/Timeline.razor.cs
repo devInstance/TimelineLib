@@ -38,7 +38,7 @@ namespace DevInstance.Timelines
 
                 CalculateTimeRange();
 
-                //InitializeTimeScale();
+                InitializeTimeScale();
                 InitializeTimeBars();
                 StateHasChanged();
             }
@@ -70,14 +70,14 @@ namespace DevInstance.Timelines
             }
         }
 
-        bool InitializeTimeScaleGuard = false;
+        //bool InitializeTimeScaleGuard = false;
         private void InitializeTimeScale()
         {
             using (var l = log.DebugExScope())
             {
-                if (!InitializeTimeScaleGuard)
-                {
-                    InitializeTimeScaleGuard = true;
+                //if (!InitializeTimeScaleGuard)
+                //{
+                //    InitializeTimeScaleGuard = true;
                     int height = 0;
                     var now = DateTime.Today;
                     CalculateTimeRange();
@@ -92,8 +92,8 @@ namespace DevInstance.Timelines
                     }
 
                     Parent.UpdateParentsHeight(height);
-                    InitializeTimeScaleGuard = false;
-                }
+                //    InitializeTimeScaleGuard = false;
+                //}
             }
         }
 

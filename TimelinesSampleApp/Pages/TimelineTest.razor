@@ -76,13 +76,14 @@ protected async override Task OnInitializedAsync()
     Start: @startTime
     End: @endTime
 </p>
-<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">-Hour</button>
-<button class="btn btn-default" @onclick="@(() => { startTime++; StateHasChanged(); })">+Hour</button>
-@*<button class="btn btn-default" @onclick="@(() => { StateHasChanged(); })">-Line</button>
-<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">+Line</button>*@
+<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">- Start</button>
+<button class="btn btn-default" @onclick="@(() => { startTime++; StateHasChanged(); })">+ Start</button>
+<button class="btn btn-default" @onclick="@(() => { endTime--; StateHasChanged(); })">- End</button>
+<button class="btn btn-default" @onclick="@(() => { endTime++; StateHasChanged(); })">+ End</button>
+<button class="btn btn-default" @onclick="@(() => { DynamicLines.Add(NewLine) ; StateHasChanged(); })">Add Line</button>
 <DevInstance.Timelines.Chart StartTime="startTime" EndTime="endTime">
     <Lines>
-        <DevInstance.Timelines.Timeline Data="Lines">
+        <DevInstance.Timelines.Timeline Data="DynamicLines">
         </DevInstance.Timelines.Timeline>
     </Lines>
 </DevInstance.Timelines.Chart>

@@ -52,10 +52,15 @@ protected async override Task OnInitializedAsync()
     </div>
 </div>
 
-<h2>Default behaviour</h2>
+<h2>Default behavior</h2>
 
 <p>
-    <DevInstance.TimelineLib.Heatline Data="Lines" StartTime="0.0" EndTime="24.0"></DevInstance.TimelineLib.Heatline>
+    <DevInstance.Timelines.Chart StartTime="0.0" EndTime="24.0">
+        <Lines>
+            <DevInstance.Timelines.Heatline Data="Lines">
+            </DevInstance.Timelines.Heatline>
+        </Lines>
+    </DevInstance.Timelines.Chart>
 </p>
 
 @code{

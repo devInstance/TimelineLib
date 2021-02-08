@@ -27,21 +27,51 @@ namespace DevInstance.Timelines
             {
                 CalculateTimeRange();
                 l.D($"timeRange.Span={timeRange.Span}");
-                cellWidthPercent = 100.0f / (float)timeRange.Span;
 
                 InitializeTimeScale();
                 InitializeHeatlines();
-//                StateHasChanged();
             }
         }
 
+        protected override void OnParametersSet()
+        {
+            using (var l = log.DebugExScope())
+            {
+                base.OnParametersSet();
+
+                CalculateTimeRange();
+                l.D($"timeRange.Span={timeRange.Span}");
+
+                InitializeTimeScale();
+                InitializeHeatlines();
+                StateHasChanged();
+            }
+        }
+
+
         private void CalculateTimeRange()
         {
-            timeRange = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
-
-            if (IsTimeRangeFlexible)
+            using (var l = log.DebugExScope())
             {
-                timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, TimeInterval, Data);
+                if (timeRange != null)
+                {
+                    l.DE($"Existing {timeRange.StartTime} - {timeRange.EndTime}");
+                }
+                l.DE($"Parent {Parent.Range.StartTime} - {Parent.Range.EndTime}");
+                if (timeRange != Parent.Range)
+                {
+                    timeRange = Parent.Range;
+                    cellWidthPercent = 100.0f / (float)timeRange.Span;
+
+                    l.DE($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
+
+                    if (Parent.IsTimeRangeFlexible)
+                    {
+                        timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, TimeInterval, Data);
+                    }
+
+                    Parent.UpdateParentsTimeRange(timeRange);
+                }
             }
         }
 
@@ -60,38 +90,42 @@ namespace DevInstance.Timelines
                 {
                     svgHeight = 46;
                 }
+                Parent.UpdateParentsHeight(svgHeight);
             }
         }
 
         private void InitializeHeatlines()
         {
-            var heatlines = new List<HeatItem>();
-
-            if (Data != null)
+            using (var l = log.DebugExScope())
             {
-                int n = 0;
-                foreach (var line in Data)
+                var heatlines = new List<HeatItem>();
+
+                if (Data != null)
                 {
-                    foreach (var it in line.Items)
+                    int n = 0;
+                    foreach (var line in Data)
                     {
-                        float x = ((it.Time.Hour + (it.Time.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
-                        int y = n * 36 + 24;
-                        var item = new HeatItem
+                        foreach (var it in line.Items)
                         {
-                            CssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
-                            X = $"{x}%",
-                            Y = $"{y}",
-                            Value = it.Value
-                        };
+                            float x = ((it.Time.Hour + (it.Time.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
+                            int y = n * 36 + 24;
+                            var item = new HeatItem
+                            {
+                                CssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
+                                X = $"{x}%",
+                                Y = $"{y}",
+                                Value = it.Value
+                            };
 
-                        heatlines.Add(item);
+                            heatlines.Add(item);
+                        }
+
+                        n++;
                     }
-
-                    n++;
                 }
-            }
 
-            HeatItems = heatlines.ToArray();
+                HeatItems = heatlines.ToArray();
+            }
         }
 
 
