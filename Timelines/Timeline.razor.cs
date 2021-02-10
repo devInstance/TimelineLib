@@ -56,7 +56,6 @@ namespace DevInstance.Timelines
                 if (timeRange != Parent.Range)
                 {
                     timeRange = Parent.Range;
-                    cellWidthPercent = 100.0f / (float)timeRange.Span;
 
                     l.DE($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
 
@@ -65,19 +64,21 @@ namespace DevInstance.Timelines
                         timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, Data);
                     }
 
+                    cellWidthPercent = 100.0f / (float)timeRange.Span;
+
                     Parent.UpdateParentsTimeRange(timeRange);
                 }
             }
         }
 
-        //bool InitializeTimeScaleGuard = false;
+        bool InitializeTimeScaleGuard = false;
         private void InitializeTimeScale()
         {
             using (var l = log.DebugExScope())
             {
-                //if (!InitializeTimeScaleGuard)
-                //{
-                //    InitializeTimeScaleGuard = true;
+                if (!InitializeTimeScaleGuard)
+                {
+                    InitializeTimeScaleGuard = true;
                     int height = 0;
                     var now = DateTime.Today;
                     CalculateTimeRange();
@@ -92,8 +93,8 @@ namespace DevInstance.Timelines
                     }
 
                     Parent.UpdateParentsHeight(height);
-                //    InitializeTimeScaleGuard = false;
-                //}
+                    InitializeTimeScaleGuard = false;
+                }
             }
         }
 
@@ -155,7 +156,7 @@ namespace DevInstance.Timelines
             {
                 //InitializeTimeScale();
                 var res = base.ShouldRender();
-                l.DE($"result = ${res}");
+                l.DE($"***result = ${res}");
                 return res;
             }
         }

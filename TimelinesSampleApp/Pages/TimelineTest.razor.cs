@@ -8,8 +8,11 @@ namespace DevInstance.Timeline.Sample.Pages
     public partial class TimelineTest
     {
         private Line[] Lines;
+        private List<Line> CustomLines;
         private List<Line> DynamicLines;
+        private List<Item> DynamicItems;
         private Line NewLine;
+        private Line DynamicLine;
 
         protected async override Task OnInitializedAsync()
         {
@@ -45,7 +48,7 @@ namespace DevInstance.Timeline.Sample.Pages
 
             Lines = new Line[] { line1, line2 };
 
-            DynamicLines = new List<Line>();
+            CustomLines = new List<Line>();
 
             NewLine = new Line
             {
@@ -59,9 +62,35 @@ namespace DevInstance.Timeline.Sample.Pages
                 }
             };
 
-            DynamicLines.Add(line2);
-            DynamicLines.Add(line1);
+            CustomLines.Add(line2);
+            CustomLines.Add(line1);
 
+            DynamicItems = new List<Item>();
+            DynamicLine = new Line
+            {
+                Title = "test 4",
+                CssClass = "red",
+                Items = DynamicItems
+            };
+
+            DynamicLines = new List<Line>();
+            DynamicLines.Add(DynamicLine);
         }
+
+        private async void OnAddItem()
+        {
+            var now = new DateTime(2021, 1, 12, 0, 0, 0);
+
+            double start;
+            Double.TryParse(startTimeLabel, out start);
+
+            int time;
+            Int32.TryParse(endTimeLabel, out time);
+
+            DynamicItems.Add(new Item { StartTime = now.AddHours(start), ElapsedTime = new TimeSpan(0, time, 0) });
+
+            StateHasChanged();
+        }
+
     }
 }
