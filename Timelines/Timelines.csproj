@@ -6,7 +6,7 @@
     <RootNamespace>DevInstance.Timelines</RootNamespace>
     <Authors>Yuriy Frankiv</Authors>
     <Company>DevInstance</Company>
-    <Product>TimelineLib</Product>
+    <Product>Timelines</Product>
     <Copyright>Copyright 2021 DevInstance</Copyright>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
     <FileVersion>0.0.0.1</FileVersion>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevInstance.LogScope" Version="0.9.1" />
+    <PackageReference Include="DevInstance.LogScope" Version="1.0.0-preview02192020" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.2" />
   </ItemGroup>
 

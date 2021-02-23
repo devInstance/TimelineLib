@@ -27,7 +27,7 @@ namespace DevInstance.Timelines
         protected override void OnInitialized()
         {
             log = ScopeManager.CreateLogger(this);
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 timeRange = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
 
@@ -42,17 +42,17 @@ namespace DevInstance.Timelines
 
         protected override void OnParametersSet()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 base.OnParametersSet();
 
-                l.DE($"Parameters {StartTime} - {EndTime}");
+                l.T($"Parameters {StartTime} - {EndTime}");
                 var r = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
 
                 if(r != timeRange)
                 {
                     timeRange = r;
-                    l.DE($"New time range");
+                    l.T($"New time range");
                     RenderTimeScale();
                     StateHasChanged();
                 }
@@ -62,7 +62,7 @@ namespace DevInstance.Timelines
         private void RenderTimeScale()
         {
             var now = DateTime.Today;
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 cellWidthPercent = 100.0f / (float)timeRange.Span;
 
@@ -109,18 +109,18 @@ namespace DevInstance.Timelines
 
         protected override bool ShouldRender()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 //InitializeTimeScale();
                 var res = base.ShouldRender();
-                l.DE($"result = ${res}");
+                l.T($"result = ${res}");
                 return res;
             }
         }
 
         void ITimelineChart.UpdateParentsHeight(int value)
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 var newValue = value.ToString();
                 if (Height != newValue)
@@ -133,7 +133,7 @@ namespace DevInstance.Timelines
 
         void ITimelineChart.UpdateParentsTimeRange(TimeRange r)
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 if (TimeScaleLabel == null || timeRange != r)
                 {

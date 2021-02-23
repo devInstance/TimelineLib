@@ -23,7 +23,7 @@ namespace DevInstance.Timelines
         protected override void OnInitialized()
         {
             log = ScopeManager.CreateLogger(this);
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 CalculateTimeRange();
                 l.D($"timeRange.Span={timeRange.Span}");
@@ -35,7 +35,7 @@ namespace DevInstance.Timelines
 
         protected override void OnParametersSet()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 base.OnParametersSet();
 
@@ -51,24 +51,25 @@ namespace DevInstance.Timelines
 
         private void CalculateTimeRange()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 if (timeRange != null)
                 {
-                    l.DE($"Existing {timeRange.StartTime} - {timeRange.EndTime}");
+                    l.T($"Existing {timeRange.StartTime} - {timeRange.EndTime}");
                 }
-                l.DE($"Parent {Parent.Range.StartTime} - {Parent.Range.EndTime}");
+                l.T($"Parent {Parent.Range.StartTime} - {Parent.Range.EndTime}");
                 if (timeRange != Parent.Range)
                 {
                     timeRange = Parent.Range;
-                    cellWidthPercent = 100.0f / (float)timeRange.Span;
 
-                    l.DE($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
+                    l.T($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
 
                     if (Parent.IsTimeRangeFlexible)
                     {
                         timeRange = TimeRangeCalculator.CalculateDynamicTimeRange(timeRange, TimeInterval, Data);
                     }
+
+                    cellWidthPercent = 100.0f / (float)timeRange.Span;
 
                     Parent.UpdateParentsTimeRange(timeRange);
                 }
@@ -78,7 +79,7 @@ namespace DevInstance.Timelines
         private void InitializeTimeScale()
         {
             var now = DateTime.Today;
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 CalculateTimeRange();
 
@@ -96,7 +97,7 @@ namespace DevInstance.Timelines
 
         private void InitializeHeatlines()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 var heatlines = new List<HeatItem>();
 

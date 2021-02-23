@@ -21,7 +21,7 @@ namespace DevInstance.Timelines
         protected override void OnInitialized()
         {
             log = ScopeManager.CreateLogger(this);
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 CalculateTimeRange();
 
@@ -32,7 +32,7 @@ namespace DevInstance.Timelines
 
         protected override void OnParametersSet()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 base.OnParametersSet();
 
@@ -46,18 +46,18 @@ namespace DevInstance.Timelines
 
         private void CalculateTimeRange()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 if (timeRange != null)
                 {
-                    l.DE($"Existing {timeRange.StartTime} - {timeRange.EndTime}");
+                    l.T($"Existing {timeRange.StartTime} - {timeRange.EndTime}");
                 }
-                l.DE($"Parent {Parent.Range.StartTime} - {Parent.Range.EndTime}");
+                l.T($"Parent {Parent.Range.StartTime} - {Parent.Range.EndTime}");
                 if (timeRange != Parent.Range)
                 {
                     timeRange = Parent.Range;
 
-                    l.DE($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
+                    l.T($"New range from parent {timeRange.StartTime} - {timeRange.EndTime}");
 
                     if (Parent.IsTimeRangeFlexible)
                     {
@@ -74,7 +74,7 @@ namespace DevInstance.Timelines
         bool InitializeTimeScaleGuard = false;
         private void InitializeTimeScale()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 if (!InitializeTimeScaleGuard)
                 {
@@ -100,7 +100,7 @@ namespace DevInstance.Timelines
 
         private void InitializeTimeBars()
         {
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 var bars = new List<TimeBar>();
 
@@ -152,11 +152,11 @@ namespace DevInstance.Timelines
 
             //    return true;
             //}
-            using (var l = log.DebugExScope())
+            using (var l = log.TraceScope())
             {
                 //InitializeTimeScale();
                 var res = base.ShouldRender();
-                l.DE($"***result = ${res}");
+                l.T($"***result = ${res}");
                 return res;
             }
         }
