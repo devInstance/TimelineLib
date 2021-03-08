@@ -115,7 +115,8 @@ namespace DevInstance.Timelines
                                 CssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
                                 X = $"{x}%",
                                 Y = $"{y}",
-                                Value = it.Value
+                                Value = it.Value,
+                                Tooltip = it.Description
                             };
 
                             heatlines.Add(item);

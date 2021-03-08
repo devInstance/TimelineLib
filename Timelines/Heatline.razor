@@ -3,7 +3,7 @@
     var item = HeatItems[i];
     <g>
         <circle cx="@(item.X)" cy="@(item.Y)" r="10" style="fill:@(item.CssClass);fill-opacity:@item.Value;">
-            <title>some text</title>
+            <title>@(item.Tooltip)</title>
         </circle>
     </g>
 }
@@ -29,7 +29,7 @@
     public struct Item
     {
         public float Value;
-
+        public string Description;
         public DateTime Time { get; set; }
     }
 
