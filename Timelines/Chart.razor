@@ -1,29 +1,40 @@
 ﻿<div>
-    @if (TimeScaleLabel != null)
+    @if (ShowLineLabels && LineLabels != null)
     {
-        @foreach (var item in TimeScaleLabel)
-        {
-            <div class="@(item.CssClass)" style="@(item.DivStyle)"><small>@(item.LabelText)</small></div>
-        }
-    }
-    <div>
-        <svg class="chart" width="100%" style="z-index:-1;" height="@(Height)" role="img">
-            @if (TimeScale != null)
+        <div class="left-container">
+            <div class="vertical-label" style="width: 100%;margin-top:1em;"></div>
+            @foreach (var label in LineLabels)
             {
-                @foreach (var item in TimeScale)
-                {
-                    <line x1="@(item.HourLineX)" y1="0" x2="@(item.HourLineX)" y2="@(item.HourLineY)" stroke="grey"></line>
-                    <line x1="@(item.HalfLineX)" y1="0" x2="@(item.HalfLineX)" y2="@(item.HalfLineY)" stroke="grey"></line>
-                }
+                <div class="vertical-label" style="width: 100%;position: relative;@(label.DivStyle)"><small>@(label.LabelText)</small></div>
             }
-            <CascadingValue Value="this" Name="Parent">
-                @Lines
-            </CascadingValue>
-        </svg>
+        </div>
+    }
+    <div class="@(ShowLineLabels ? "right-container" :"full-container")">
+        @if (ShowTimeLabel && TimeScaleLabel != null)
+        {
+            @foreach (var item in TimeScaleLabel)
+            {
+                <div class="@(item.CssClass)" style="@(item.DivStyle)"><small>@(item.LabelText)</small></div>
+            }
+        }
+        <div>
+            <svg class="@CssContainerClass" width="100%" style="z-index:-1;" height="@(Height)" role="img">
+                @if (TimeScale != null)
+                {
+                    @foreach (var item in TimeScale)
+                    {
+                        <line x1="@(item.HourLineX)" y1="0" x2="@(item.HourLineX)" y2="@(item.HourLineY)" stroke="grey"></line>
+                        <line x1="@(item.HalfLineX)" y1="0" x2="@(item.HalfLineX)" y2="@(item.HalfLineY)" stroke="grey"></line>
+                    }
+                }
+                <CascadingValue Value="this" Name="Parent">
+                    @Lines
+                </CascadingValue>
+            </svg>
+        </div>
+
     </div>
-
 </div>
-
 @inject IScopeManager ScopeManager;
 
 @code {
@@ -63,10 +74,8 @@
     [Parameter]
     public string Height { get; set; }
     [Parameter]
-    public bool ShowGrid { get; set; }
+    public bool ShowTimeLabel { get; set; } = true;
     [Parameter]
-    public bool ShowTimeLabel { get; set; }
-    [Parameter]
-    public bool ShowTimeLines { get; set; }
+    public bool ShowLineLabels { get; set; } = false;
 
 }

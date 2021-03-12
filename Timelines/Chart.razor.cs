@@ -15,6 +15,7 @@ namespace DevInstance.Timelines
 
         private TimeScaleLabelItem[] TimeScaleLabel;
         private TimeScaleItem[] TimeScale;
+        private TimeScaleLabelItem[] LineLabels;
 
         private IScopeLog log;
 
@@ -24,6 +25,18 @@ namespace DevInstance.Timelines
 
         DateTime ITimelineChart.CurrentDateTime => CurrentDateTime;
 
+        string CssContainerClass
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(CssClass))
+                {
+                    return "chart";
+                }
+                return CssClass;
+            }
+        }
+
         protected override void OnInitialized()
         {
             log = ScopeManager.CreateLogger(this);
@@ -31,7 +44,7 @@ namespace DevInstance.Timelines
             {
                 timeRange = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
 
-                if(Lines == null)
+                if (Lines == null)
                 {
                     // if no child template then render scale for the default range
                     RenderTimeScale();
@@ -49,7 +62,7 @@ namespace DevInstance.Timelines
                 l.T($"Parameters {StartTime} - {EndTime}");
                 var r = TimeRangeCalculator.CreateTimeRange(StartTime, EndTime);
 
-                if(r != timeRange)
+                if (r != timeRange)
                 {
                     timeRange = r;
                     l.T($"New time range");
@@ -141,6 +154,15 @@ namespace DevInstance.Timelines
                     RenderTimeScale();
                     StateHasChanged();
                 }
+            }
+        }
+
+        void ITimelineChart.SetLineLabels(TimeScaleLabelItem[] labels)
+        {
+            if(LineLabels == null || LineLabels.Length != labels.Length)
+            {
+                LineLabels = labels;
+                StateHasChanged();
             }
         }
     }

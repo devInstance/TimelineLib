@@ -1,11 +1,19 @@
-﻿@for (int i = 0; i < HeatItems.Length; i++)
+﻿@foreach (var gline in GuidingLines)
+{
+    <g class="guide-line">
+        <line x1="@(gline.Left)" y1="@(gline.Horizontal)" x2="@(gline.Right)" y2="@(gline.Horizontal)" />
+    </g>
+}
+
+@for (int i = 0; i < HeatItems.Length; i++)
 {
     var item = HeatItems[i];
-    <g>
-        <circle cx="@(item.X)" cy="@(item.Y)" r="10" style="fill:@(item.CssClass);fill-opacity:@item.Value;">
-            <title>@(item.Tooltip)</title>
-        </circle>
-    </g>
+<g class="@(item.CssClass)" >
+    @*//TODO: Introduce radius parameter*@
+    <circle cx="@(item.X)" cy="@(item.Y)" r="10" class="@(item.CssClass)" style="opacity:@item.Value;">
+        <title>@(item.Tooltip)</title>
+    </circle>
+</g>
 }
 
 @inject IScopeManager ScopeManager;

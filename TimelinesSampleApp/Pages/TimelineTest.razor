@@ -76,12 +76,12 @@ protected async override Task OnInitializedAsync()
     Start: @startTime
     End: @endTime
 </p>
-<button class="btn btn-default" @onclick="@(() => { startTime--; StateHasChanged(); })">- Start</button>
-<button class="btn btn-default" @onclick="@(() => { startTime++; StateHasChanged(); })">+ Start</button>
-<button class="btn btn-default" @onclick="@(() => { endTime--; StateHasChanged(); })">- End</button>
-<button class="btn btn-default" @onclick="@(() => { endTime++; StateHasChanged(); })">+ End</button>
-<button class="btn btn-default" @onclick="@(() => { CustomLines.Add(NewLine) ; StateHasChanged(); })">Add Line</button>
-<DevInstance.Timelines.Chart StartTime="startTime" EndTime="endTime">
+<button class="btn btn-outline-primary" @onclick="@(() => { startTime--; StateHasChanged(); })">- Start</button>
+<button class="btn btn-outline-primary" @onclick="@(() => { startTime++; StateHasChanged(); })">+ Start</button>
+<button class="btn btn-outline-primary" @onclick="@(() => { endTime--; StateHasChanged(); })">- End</button>
+<button class="btn btn-outline-primary" @onclick="@(() => { endTime++; StateHasChanged(); })">+ End</button>
+<button class="btn btn-outline-primary" @onclick="@(() => { CustomLines.Add(NewLine) ; StateHasChanged(); })">Add Line</button>
+<DevInstance.Timelines.Chart StartTime="startTime" EndTime="endTime" ShowLineLabels="true">
     <Lines>
         <DevInstance.Timelines.Timeline Data="CustomLines">
         </DevInstance.Timelines.Timeline>

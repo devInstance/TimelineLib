@@ -1,9 +1,6 @@
-﻿using DevInstance.Timelines.Utils;
+﻿using DevInstance.Timelines.Model;
+using DevInstance.Timelines.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevInstance.Timelines
 {
@@ -14,5 +11,6 @@ namespace DevInstance.Timelines
         DateTime CurrentDateTime { get; }
         void UpdateParentsHeight(int value);
         void UpdateParentsTimeRange(TimeRange timeRange);
+        void SetLineLabels(TimeScaleLabelItem[] labels);
     }
 }

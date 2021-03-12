@@ -1,6 +1,6 @@
 ﻿[
-  {
-    "outputFile": "wwwroot/css/timeline.css",
-    "inputFile": "wwwroot/css/timeline.scss"
-  }
+    {
+        "outputFile": "wwwroot/css/default/timelines.css",
+        "inputFile": "styles/default/timelines.scss"
+    }
 ]

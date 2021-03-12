@@ -1,0 +1,91 @@
+﻿@import "color.scss";
+
+@function tint($color) {
+    @return mix(white, $color, 30%);
+}
+
+@function shade($color) {
+    @return mix(black, $color, 50%);
+}
+
+/*TODO: refactor this code. Why do we need white?*/
+.white {
+    background-color: #f0f0f0 !important;
+    color: #FFFFFF !important;
+    fill: #f0f0f0;
+    stroke: #a0a0a0;
+}
+
+.white:focus,
+.white:hover {
+    background-color: #b0b0b0 !important;
+    color: #FFFFFF !important;
+    fill: #b0b0b0;
+    stroke: #a0a0a0;
+}
+
+@mixin bar-color($bg-color, $fg-color) {
+    background-color: $bg-color !important;
+    color: $fg-color !important;
+    fill: $bg-color;
+    stroke: shade($bg-color);
+
+    &:hover {
+        background-color: tint($bg-color) !important;
+        color: $fg-color !important;
+        fill: tint($bg-color);
+    }
+
+    &:focus {
+        background-color: shade($bg-color) !important;
+        color: $fg-color !important;
+        fill: shade($bg-color);
+    }
+}
+
+@mixin circle-color($color) {
+    background-color: $color !important;
+    color: $color !important;
+    fill: $color;
+    stroke: shade($color);
+}
+
+rect.blue {
+    @include bar-color($color-blue, $color-white)
+}
+
+rect.red {
+    @include bar-color($color-red, $color-white)
+}
+
+rect.green {
+    @include bar-color($color-green, $color-white)
+}
+
+rect.yellow {
+    @include bar-color($color-yellow, $color-white)
+}
+
+rect.aqua {
+    @include bar-color($color-aqua, $color-white);
+}
+
+rect.orange {
+    @include bar-color($color-orange, $color-white);
+}
+
+rect.darkblue {
+    @include bar-color($color-darkblue, $color-white);
+}
+
+rect.purple {
+    @include bar-color($color-purple, $color-white);
+}
+
+rect.lightblue {
+    @include bar-color($color-lightblue, $color-white);
+}
+
+rect.rose {
+    @include bar-color($color-rose, $color-white);
+}

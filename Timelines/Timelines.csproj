@@ -17,6 +17,18 @@
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <Content Remove="packages.config" />
+    <Content Remove="wwwroot\Timeline.razor.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="styles\default\bar-color.scss" />
+    <None Remove="styles\default\circle-color.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="styles\default\circle-color.scss" />
+    <Content Include="styles\default\bar-color.scss" />
+    <Content Include="styles\default\color.scss" />
   </ItemGroup>
 
   <ItemGroup>

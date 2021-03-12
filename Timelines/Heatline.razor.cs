@@ -15,6 +15,7 @@ namespace DevInstance.Timelines
         private float cellWidthPercent;
 
         private HeatItem[] HeatItems;
+        private GuidingLine[] GuidingLines;
 
         private int svgHeight;
 
@@ -100,16 +101,31 @@ namespace DevInstance.Timelines
             using (var l = log.TraceScope())
             {
                 var heatlines = new List<HeatItem>();
+                var glines = new List<GuidingLine>();
+                var lineLabels = new List<TimeScaleLabelItem>();
 
                 if (Data != null)
                 {
                     int n = 0;
                     foreach (var line in Data)
                     {
+                        int y = n * 36 + 24;
+                        var gline = new GuidingLine
+                        {
+                            Horizontal = $"{y}",
+                            Left = "0%",
+                            Right = "100%" //TODO: Introduce margins
+                        };
+                        glines.Add(gline);
+
+                        var lineLabel = new TimeScaleLabelItem();
+                        lineLabel.LabelText = line.Title; //TODO: needs i18n review
+                        lineLabel.DivStyle = n == 0 ? $"height:46px; margin-top:10px;padding-top:10px;" : $"height:36px";
+                        lineLabels.Add(lineLabel);
+
                         foreach (var it in line.Items)
                         {
                             float x = ((it.Time.Hour + (it.Time.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
-                            int y = n * 36 + 24;
                             var item = new HeatItem
                             {
                                 CssClass = (line.CssClass != null ? line.CssClass.ToLower() : "white"),
@@ -127,6 +143,9 @@ namespace DevInstance.Timelines
                 }
 
                 HeatItems = heatlines.ToArray();
+                GuidingLines = glines.ToArray();
+
+                Parent.SetLineLabels(lineLabels.ToArray());
             }
         }
 

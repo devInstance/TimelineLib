@@ -1,0 +1,72 @@
+﻿.bar {
+    height: 21px;
+    transition: fill .3s ease;
+    cursor: pointer;
+    stroke-width: 0.5px;
+}
+
+    .bar text {
+        fill: #fff !important;
+        font-size: 14px;
+    }
+
+.even-label, .odd-label {
+    float: left;
+}
+
+.vertical-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.left-container {
+    float: left;
+    width: 5%;
+}
+.right-container {
+    float: right;
+    width: 95%;
+}
+
+.full-container {
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .left-container {
+        width: 10%;
+    }
+
+    .right-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .odd-label {
+        visibility: hidden;
+    }
+
+    .left-container {
+        width: 15%;
+    }
+
+    .right-container {
+        width: 85%;
+    }
+}
+
+.chart {
+    border: 1px solid #a29f9f;
+}
+
+.guide-line {
+    stroke: #a29f9f;
+    stroke-width: 0.5px;
+}
+
+@import "bar-color.scss";
+@import "circle-color.scss";

@@ -1,10 +1,17 @@
-﻿@foreach (var bar in TimeBars)
+﻿@foreach (var gline in GuidingLines)
 {
-    <g class="@(bar.CssClass)">
-        <rect x="@(bar.Left)"
-                y="@(bar.Top)"
-                width="@(bar.Width)"
-                height="@(bar.Height)">
+    <g class="guide-line">
+        <line x1="@(gline.Left)" y1="@(gline.Horizontal)" x2="@(gline.Right)" y2="@(gline.Horizontal)" />
+    </g>
+}
+
+@foreach (var bar in TimeBars)
+{
+    <g>
+        <rect class="@(bar.CssClass)" x="@(bar.Left)"
+              y="@(bar.Top)"
+              width="@(bar.Width)"
+              height="@(bar.Height)">
             <title>@(bar.Tooltip)</title>
         </rect>
     </g>
@@ -12,7 +19,7 @@
     {
         <g class="bar">
             <text x="@(bar.LabelX)"
-                    y="@(bar.LabelY)">
+                  y="@(bar.LabelY)">
                 @(bar.Label)
             </text>
         </g>

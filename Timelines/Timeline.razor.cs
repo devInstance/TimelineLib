@@ -15,6 +15,7 @@ namespace DevInstance.Timelines
         private float cellWidthPercent;
 
         private TimeBar[] TimeBars;
+        private GuidingLine[] GuidingLines;
 
         private IScopeLog log;
 
@@ -23,10 +24,16 @@ namespace DevInstance.Timelines
             log = ScopeManager.CreateLogger(this);
             using (var l = log.TraceScope())
             {
-                CalculateTimeRange();
+                if (!InitializeTimeScaleGuard)
+                {
+                    InitializeTimeScaleGuard = true;
 
-                InitializeTimeScale();
-                InitializeTimeBars();
+                    CalculateTimeRange();
+
+                    InitializeTimeScale();
+                    InitializeTimeBars();
+                    InitializeTimeScaleGuard = false;
+                }
             }
         }
 
@@ -36,11 +43,16 @@ namespace DevInstance.Timelines
             {
                 base.OnParametersSet();
 
-                CalculateTimeRange();
+                if (!InitializeTimeScaleGuard)
+                {
+                    InitializeTimeScaleGuard = true;
+                    CalculateTimeRange();
 
-                InitializeTimeScale();
-                InitializeTimeBars();
-                StateHasChanged();
+                    InitializeTimeScale();
+                    InitializeTimeBars();
+                    StateHasChanged();
+                    InitializeTimeScaleGuard = false;
+                }
             }
         }
 
@@ -76,25 +88,25 @@ namespace DevInstance.Timelines
         {
             using (var l = log.TraceScope())
             {
-                if (!InitializeTimeScaleGuard)
+                //if (!InitializeTimeScaleGuard)
+                //{
+                //    InitializeTimeScaleGuard = true;
+                int height = 0;
+                var now = DateTime.Today;
+                CalculateTimeRange();
+
+                if (Data != null)
                 {
-                    InitializeTimeScaleGuard = true;
-                    int height = 0;
-                    var now = DateTime.Today;
-                    CalculateTimeRange();
-
-                    if (Data != null)
-                    {
-                        height = Data.Count() * 36 + 10; //TODO: refactor
-                    }
-                    else
-                    {
-                        height = 46;
-                    }
-
-                    Parent.UpdateParentsHeight(height);
-                    InitializeTimeScaleGuard = false;
+                    height = Data.Count() * 36 + 10; //TODO: introduce parameter and default value
                 }
+                else
+                {
+                    height = 46;
+                }
+
+                Parent.UpdateParentsHeight(height);
+                //    InitializeTimeScaleGuard = false;
+                //}
             }
         }
 
@@ -103,18 +115,34 @@ namespace DevInstance.Timelines
             using (var l = log.TraceScope())
             {
                 var bars = new List<TimeBar>();
+                var glines = new List<GuidingLine>();
+                var lineLabels = new List<TimeScaleLabelItem>();
+
+                int height = 26; //TODO: introduce parameter and default value
 
                 if (Data != null)
                 {
                     int n = 0;
                     foreach (var task in Data)
                     {
+                        int y = n * 36 + 10;  //TODO: introduce parameter and default value
+                        var gline = new GuidingLine
+                        {
+                            Horizontal = $"{y + (height / 2)}",
+                            Left = "0%",
+                            Right = "100%" //TODO: Introduce margins
+                        };
+                        glines.Add(gline);
+
+                        var lineLabel = new TimeScaleLabelItem();
+                        lineLabel.LabelText = task.Title; //TODO: needs i18n review
+                        lineLabel.DivStyle = n == 0 ? $"height:46px; margin-top:10px;padding-top:10px;" : $"height:36px";
+                        lineLabels.Add(lineLabel);
+
                         foreach (var tl in task.Items)
                         {
                             float x = ((tl.StartTime.Hour + (tl.StartTime.Minute / 60.0f) - (float)timeRange.StartTime) * cellWidthPercent);
-                            int y = n * 36 + 10;
                             float width = ((float)tl.ElapsedTime.TotalMinutes / 60.0f * cellWidthPercent);
-                            int height = 26;
                             var item = new TimeBar
                             {
                                 CssClass = "bar " + (task.CssClass != null ? task.CssClass.ToLower() : "white"),
@@ -129,7 +157,7 @@ namespace DevInstance.Timelines
                             var tm = tl.ElapsedTime;
                             //TODO: i18n review
                             var timeFormat = tm.Hours > 0 ? "{0}: {1:hh} hours and {1:%m} minutes" : "{0}: {1:%m} minutes";
-                            item.Tooltip = String.Format(timeFormat, tl.Description, tm);
+                            item.Tooltip = String.Format(timeFormat, String.IsNullOrEmpty(tl.Description) ? task.Title:tl.Description, tm);
 
                             bars.Add(item);
                         }
@@ -139,6 +167,15 @@ namespace DevInstance.Timelines
                 }
 
                 TimeBars = bars.ToArray();
+                GuidingLines = glines.ToArray();
+
+                //if (!InitializeTimeScaleGuard)
+                //{
+                //    InitializeTimeScaleGuard = true;
+
+                Parent.SetLineLabels(lineLabels.ToArray());
+                //    InitializeTimeScaleGuard = false;
+                //}
             }
         }
 

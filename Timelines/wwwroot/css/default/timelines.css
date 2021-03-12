@@ -8,15 +8,46 @@
   fill: #fff !important;
   font-size: 14px; }
 
-.chart {
-  background-color: #D0E0FF; }
-
 .even-label, .odd-label {
   float: left; }
 
+.vertical-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.left-container {
+  float: left;
+  width: 5%; }
+
+.right-container {
+  float: right;
+  width: 95%; }
+
+.full-container {
+  width: 100%; }
+
+@media (max-width: 1200px) {
+  .left-container {
+    width: 10%; }
+  .right-container {
+    width: 90%; } }
+
 @media (max-width: 800px) {
   .odd-label {
-    visibility: hidden; } }
+    visibility: hidden; }
+  .left-container {
+    width: 15%; }
+  .right-container {
+    width: 85%; } }
+
+.chart {
+  border: 1px solid #a29f9f; }
+
+.guide-line {
+  stroke: #a29f9f;
+  stroke-width: 0.5px; }
 
 .clear {
   background-color: transparent !important;
@@ -37,142 +68,204 @@
   fill: #b0b0b0;
   stroke: #a0a0a0; }
 
-.blue {
+rect.blue {
   background-color: #007bff !important;
   color: #ffffff !important;
   fill: #007bff;
   stroke: #003e80; }
-  .blue:hover {
+  rect.blue:hover {
     background-color: #4da3ff !important;
     color: #ffffff !important;
     fill: #4da3ff; }
-  .blue:focus {
+  rect.blue:focus {
     background-color: #003e80 !important;
     color: #ffffff !important;
     fill: #003e80; }
 
-.red {
+rect.red {
   background-color: #dc3545 !important;
   color: #ffffff !important;
   fill: #dc3545;
   stroke: #6e1b23; }
-  .red:hover {
+  rect.red:hover {
     background-color: #e7727d !important;
     color: #ffffff !important;
     fill: #e7727d; }
-  .red:focus {
+  rect.red:focus {
     background-color: #6e1b23 !important;
     color: #ffffff !important;
     fill: #6e1b23; }
 
-.green {
+rect.green {
   background-color: #28a745 !important;
   color: #ffffff !important;
   fill: #28a745;
   stroke: #145423; }
-  .green:hover {
+  rect.green:hover {
     background-color: #69c17d !important;
     color: #ffffff !important;
     fill: #69c17d; }
-  .green:focus {
+  rect.green:focus {
     background-color: #145423 !important;
     color: #ffffff !important;
     fill: #145423; }
 
-.yellow {
+rect.yellow {
   background-color: #ffc107 !important;
   color: #ffffff !important;
   fill: #ffc107;
   stroke: #806104; }
-  .yellow:hover {
+  rect.yellow:hover {
     background-color: #ffd451 !important;
     color: #ffffff !important;
     fill: #ffd451; }
-  .yellow:focus {
+  rect.yellow:focus {
     background-color: #806104 !important;
     color: #ffffff !important;
     fill: #806104; }
 
-.aqua {
+rect.aqua {
   background-color: #17a2b8 !important;
   color: #ffffff !important;
   fill: #17a2b8;
   stroke: #0c515c; }
-  .aqua:hover {
+  rect.aqua:hover {
     background-color: #5dbecd !important;
     color: #ffffff !important;
     fill: #5dbecd; }
-  .aqua:focus {
+  rect.aqua:focus {
     background-color: #0c515c !important;
     color: #ffffff !important;
     fill: #0c515c; }
 
-.orange {
+rect.orange {
   background-color: #d36b3b !important;
   color: #ffffff !important;
   fill: #d36b3b;
   stroke: #6a361e; }
-  .orange:hover {
+  rect.orange:hover {
     background-color: #e09776 !important;
     color: #ffffff !important;
     fill: #e09776; }
-  .orange:focus {
+  rect.orange:focus {
     background-color: #6a361e !important;
     color: #ffffff !important;
     fill: #6a361e; }
 
-.darkblue {
+rect.darkblue {
   background-color: #0507fd !important;
   color: #ffffff !important;
   fill: #0507fd;
   stroke: #03047f; }
-  .darkblue:hover {
+  rect.darkblue:hover {
     background-color: #5051fe !important;
     color: #ffffff !important;
     fill: #5051fe; }
-  .darkblue:focus {
+  rect.darkblue:focus {
     background-color: #03047f !important;
     color: #ffffff !important;
     fill: #03047f; }
 
-.purple {
+rect.purple {
   background-color: #7005fd !important;
   color: #ffffff !important;
   fill: #7005fd;
   stroke: #38037f; }
-  .purple:hover {
+  rect.purple:hover {
     background-color: #9b50fe !important;
     color: #ffffff !important;
     fill: #9b50fe; }
-  .purple:focus {
+  rect.purple:focus {
     background-color: #38037f !important;
     color: #ffffff !important;
     fill: #38037f; }
 
-.lightblue {
+rect.lightblue {
   background-color: #2874a7 !important;
   color: #ffffff !important;
   fill: #2874a7;
   stroke: #143a54; }
-  .lightblue:hover {
+  rect.lightblue:hover {
     background-color: #699ec1 !important;
     color: #ffffff !important;
     fill: #699ec1; }
-  .lightblue:focus {
+  rect.lightblue:focus {
     background-color: #143a54 !important;
     color: #ffffff !important;
     fill: #143a54; }
 
-.rose {
+rect.rose {
   background-color: #9a28a7 !important;
   color: #ffffff !important;
   fill: #9a28a7;
   stroke: #4d1454; }
-  .rose:hover {
+  rect.rose:hover {
     background-color: #b869c1 !important;
     color: #ffffff !important;
     fill: #b869c1; }
-  .rose:focus {
+  rect.rose:focus {
     background-color: #4d1454 !important;
     color: #ffffff !important;
     fill: #4d1454; }
+
+.clear {
+  background-color: transparent !important;
+  color: transparent !important;
+  fill: transparent; }
+
+/*TODO: refactor this code. Why do we need white?*/
+circle.white {
+  background-color: #f0f0f0 !important;
+  color: #FFFFFF !important;
+  fill: #f0f0f0;
+  stroke: #a0a0a0; }
+
+circle.blue {
+  background-color: #007bff !important;
+  color: #007bff !important;
+  fill: #007bff; }
+
+circle.red {
+  background-color: #dc3545 !important;
+  color: #dc3545 !important;
+  fill: #dc3545; }
+
+circle.green {
+  background-color: #28a745 !important;
+  color: #28a745 !important;
+  fill: #28a745; }
+
+circle.yellow {
+  background-color: #ffc107 !important;
+  color: #ffc107 !important;
+  fill: #ffc107; }
+
+circle.aqua {
+  background-color: #17a2b8 !important;
+  color: #17a2b8 !important;
+  fill: #17a2b8; }
+
+circle.orange {
+  background-color: #d36b3b !important;
+  color: #d36b3b !important;
+  fill: #d36b3b; }
+
+circle.darkblue {
+  background-color: #0507fd !important;
+  color: #0507fd !important;
+  fill: #0507fd; }
+
+circle.purple {
+  background-color: #7005fd !important;
+  color: #7005fd !important;
+  fill: #7005fd; }
+
+circle.lightblue {
+  background-color: #2874a7 !important;
+  color: #2874a7 !important;
+  fill: #2874a7; }
+
+circle.rose {
+  background-color: #9a28a7 !important;
+  color: #9a28a7 !important;
+  fill: #9a28a7; }

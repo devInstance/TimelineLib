@@ -17,7 +17,7 @@ namespace DevInstance.Timeline.Sample.Pages
             Lines = new Timelines.Heatline.Line[] {
                 new Timelines.Heatline.Line
                 {
-                    Title = "test" ,
+                    Title = "Test" ,
                     CssClass = "orange",
                     Items = new Timelines.Heatline.Item[]
                     {
@@ -32,7 +32,7 @@ namespace DevInstance.Timeline.Sample.Pages
                 },
                 new Timelines.Heatline.Line
                 {
-                    Title = "test" ,
+                    Title = "Test long long test" ,
                     CssClass = "blue",
                     Items = new Timelines.Heatline.Item[]
                     {

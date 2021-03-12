@@ -21,7 +21,7 @@ protected async override Task OnInitializedAsync()
     Lines = new TimelineLib.Timeline.Line[] {
         new TimelineLib.Timeline.Line
         {
-            Title = "test" ,
+            Title = "Test" ,
             CssClass = "orange",
             Items = new TimelineLib.Timeline.Item[]
             {
@@ -36,7 +36,7 @@ protected async override Task OnInitializedAsync()
         },
         new TimelineLib.Timeline.Line
         {
-            Title = "test 2" ,
+            Title = "Test long long test" ,
             CssClass = "blue",
             Items = new TimelineLib.Timeline.Item[]
             {
@@ -56,6 +56,17 @@ protected async override Task OnInitializedAsync()
 
 <p>
     <DevInstance.Timelines.Chart StartTime="0.0" EndTime="24.0">
+        <Lines>
+            <DevInstance.Timelines.Heatline Data="Lines">
+            </DevInstance.Timelines.Heatline>
+        </Lines>
+    </DevInstance.Timelines.Chart>
+</p>
+
+<h2>Line Labels</h2>
+<p>
+
+    <DevInstance.Timelines.Chart StartTime="0.0" EndTime="24.0" ShowLineLabels="true">
         <Lines>
             <DevInstance.Timelines.Heatline Data="Lines">
             </DevInstance.Timelines.Heatline>

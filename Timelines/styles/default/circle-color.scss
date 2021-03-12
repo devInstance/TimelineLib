@@ -1,0 +1,55 @@
+﻿@import "color.scss";
+
+/*TODO: refactor this code. Why do we need white?*/
+circle.white {
+    background-color: #f0f0f0 !important;
+    color: #FFFFFF !important;
+    fill: #f0f0f0;
+    stroke: #a0a0a0;
+}
+
+@mixin circle-color($color) {
+    background-color: $color !important;
+    color: $color !important;
+    fill: $color;
+}
+
+circle.blue {
+    @include circle-color($color-blue)
+}
+
+circle.red {
+    @include circle-color($color-red)
+}
+
+circle.green {
+    @include circle-color($color-green)
+}
+
+circle.yellow {
+    @include circle-color($color-yellow)
+}
+
+circle.aqua {
+    @include circle-color($color-aqua);
+}
+
+circle.orange {
+    @include circle-color($color-orange);
+}
+
+circle.darkblue {
+    @include circle-color($color-darkblue);
+}
+
+circle.purple {
+    @include circle-color($color-purple);
+}
+
+circle.lightblue {
+    @include circle-color($color-lightblue);
+}
+
+circle.rose {
+    @include circle-color($color-rose);
+}
