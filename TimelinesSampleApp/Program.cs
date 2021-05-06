@@ -1,4 +1,5 @@
 using DevInstance.LogScope.Extensions;
+using DevInstance.LogScope.Formatters;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,7 +15,7 @@ namespace DevInstance.Timeline.Sample.TimelineSampleApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddConsoleLogging(LogScope.LogLevel.TRACE, new LogScope.Formaters.DefaultFormaterOptions { ShowThreadNumber = true, ShowTimestamp = true});
+            builder.Services.AddConsoleScopeLogging(LogScope.LogLevel.TRACE, new DefaultFormattersOptions { ShowThreadNumber = true, ShowTimestamp = true});
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

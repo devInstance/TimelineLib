@@ -12,28 +12,12 @@
     <FileVersion>0.0.0.1</FileVersion>
     <Version>0.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Timelines is a chart library to help visualizing timelines and report for nocrast.com.  This is still a working in progress and early version.</Description>
+    <RepositoryUrl>https://github.com/devInstance/Timelines</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-    <Content Remove="packages.config" />
-    <Content Remove="wwwroot\Timeline.razor.min.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="styles\default\bar-color.scss" />
-    <None Remove="styles\default\circle-color.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="styles\default\circle-color.scss" />
-    <Content Include="styles\default\bar-color.scss" />
-    <Content Include="styles\default\color.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="compilerconfig.json" />
-    <None Include="packages.config" />
   </ItemGroup>
 
   
@@ -42,8 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevInstance.LogScope" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.3" />
+    <PackageReference Include="DevInstance.LogScope" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\timelines.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
